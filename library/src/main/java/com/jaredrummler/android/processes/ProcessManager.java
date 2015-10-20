@@ -17,6 +17,10 @@
 
 package com.jaredrummler.android.processes;
 
+import android.app.ActivityManager;
+import android.content.Context;
+import android.os.Build;
+
 import com.jaredrummler.android.processes.models.AndroidAppProcess;
 import com.jaredrummler.android.processes.models.AndroidProcess;
 
@@ -27,6 +31,10 @@ import java.util.List;
 
 public class ProcessManager {
 
+  /**
+   *
+   * @return a list of <i>all</i> processes running on the device.
+   */
   public static List<AndroidProcess> getRunningProcesses() {
     List<AndroidProcess> processes = new ArrayList<>();
     File[] files = new File("/proc").listFiles();
@@ -51,6 +59,10 @@ public class ProcessManager {
     return processes;
   }
 
+  /**
+   *
+   * @return a list of all running app processes on the device.
+   */
   public static List<AndroidAppProcess> getRunningAppProcesses() {
     List<AndroidAppProcess> processes = new ArrayList<>();
     File[] files = new File("/proc").listFiles();
@@ -74,6 +86,31 @@ public class ProcessManager {
       }
     }
     return processes;
+  }
+
+  /**
+   * Returns a list of application processes that are running on the device.
+   *
+   * @return a list of RunningAppProcessInfo records, or null if there are no
+   * running processes (it will not return an empty list).  This list ordering is not
+   * specified.
+   */
+  public static List<ActivityManager.RunningAppProcessInfo> getRunningAppProcessInfo(Context ctx) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+      List<AndroidAppProcess> runningAppProcesses = ProcessManager.getRunningAppProcesses();
+      List<ActivityManager.RunningAppProcessInfo> appProcessInfos = new ArrayList<>();
+      for (AndroidAppProcess process : runningAppProcesses) {
+        ActivityManager.RunningAppProcessInfo info = new ActivityManager.RunningAppProcessInfo(
+            process.name, process.pid, null
+        );
+        info.uid = process.uid;
+        // TODO: Get more information about the process. pkgList, importance, lru, etc.
+        appProcessInfos.add(info);
+      }
+      return appProcessInfos;
+    }
+    ActivityManager am = (ActivityManager) ctx.getSystemService(Context.ACTIVITY_SERVICE);
+    return am.getRunningAppProcesses();
   }
 
 }
