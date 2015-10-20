@@ -17,7 +17,7 @@
   -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.jaredrummler.android.sample" >
+    package="com.jaredrummler.android.processes.sample" >
 
     <application
         android:allowBackup="true"

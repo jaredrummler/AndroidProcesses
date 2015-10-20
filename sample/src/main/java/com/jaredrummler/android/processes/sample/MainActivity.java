@@ -15,7 +15,7 @@
  *
  */
 
-package com.jaredrummler.android.sample;
+package com.jaredrummler.android.processes.sample;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -23,8 +23,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 
-import com.jaredrummler.android.sample.models.AndroidAppProcess;
-import com.jaredrummler.android.sample.models.AndroidProcess;
+import com.jaredrummler.android.processes.ProcessManager;
+import com.jaredrummler.android.processes.models.AndroidAppProcess;
+import com.jaredrummler.android.processes.models.AndroidProcess;
 
 import java.util.List;
 

@@ -15,7 +15,7 @@
  *
  */
 
-package com.jaredrummler.android.sample.models;
+package com.jaredrummler.android.processes.models;
 
 import android.os.Parcel;
 

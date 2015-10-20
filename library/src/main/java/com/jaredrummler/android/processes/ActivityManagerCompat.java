@@ -15,13 +15,13 @@
  *
  */
 
-package com.jaredrummler.android.sample;
+package com.jaredrummler.android.processes;
 
 import android.app.ActivityManager;
 import android.content.Context;
 import android.os.Build;
 
-import com.jaredrummler.android.sample.models.AndroidAppProcess;
+import com.jaredrummler.android.processes.models.AndroidAppProcess;
 
 import java.util.ArrayList;
 import java.util.List;
