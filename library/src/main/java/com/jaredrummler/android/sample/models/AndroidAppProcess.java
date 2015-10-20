@@ -15,7 +15,7 @@
  *
  */
 
-package com.jaredrummler.android.processes.models;
+package com.jaredrummler.android.sample.models;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;
@@ -44,7 +44,7 @@ public class AndroidAppProcess extends AndroidProcess {
     if (cpu == null || cpuacct == null || !cpuacct.group.contains("pid_")) {
       throw new NotAndroidAppProcessException(pid);
     }
-    foreground = cpu.group.contains("bg_non_interactive");
+    foreground = !cpu.group.contains("bg_non_interactive");
     try {
       uid = Integer.parseInt(cpuacct.group.split("/")[1].replace("uid_", ""));
     } catch (Exception e) {

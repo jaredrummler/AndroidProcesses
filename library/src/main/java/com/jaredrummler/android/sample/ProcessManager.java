@@ -15,10 +15,10 @@
  *
  */
 
-package com.jaredrummler.android.processes;
+package com.jaredrummler.android.sample;
 
-import com.jaredrummler.android.processes.models.AndroidAppProcess;
-import com.jaredrummler.android.processes.models.AndroidProcess;
+import com.jaredrummler.android.sample.models.AndroidAppProcess;
+import com.jaredrummler.android.sample.models.AndroidProcess;
 
 import java.io.File;
 import java.io.IOException;

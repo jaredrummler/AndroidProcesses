@@ -15,7 +15,7 @@
  *
  */
 
-package com.jaredrummler.android.processes.models;
+package com.jaredrummler.android.sample.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -35,8 +35,12 @@ public class AndroidProcess implements Parcelable {
    *     if the file does not exist or we don't have read permissions.
    */
   static String getProcessName(int pid) throws IOException {
-    String cmdline = ProcFile.readFile(String.format("/proc/%d/cmdline", pid));
-    if (TextUtils.isEmpty(cmdline)) {
+    String cmdline = null;
+    try {
+      cmdline = ProcFile.readFile(String.format("/proc/%d/cmdline", pid)).trim();
+    } catch (IOException ignored) {
+    }
+    if (TextUtils.isEmpty(cmdline) || "null".equals(cmdline)) {
       return Stat.get(pid).getComm();
     }
     return cmdline;
