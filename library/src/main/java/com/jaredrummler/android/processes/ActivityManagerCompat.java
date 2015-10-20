@@ -23,7 +23,6 @@ import android.os.Build;
 
 import com.jaredrummler.android.processes.models.AndroidAppProcess;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,10 +49,7 @@ public class ActivityManagerCompat {
         ActivityManager.RunningAppProcessInfo info = new ActivityManager.RunningAppProcessInfo(
             process.name, process.pid, null
         );
-        try {
-          info.uid = process.status().getUid();
-        } catch (IOException ignored) {
-        }
+        info.uid = process.uid;
         // TODO: Get more information about the process. pkgList, importance, lru, etc.
         appProcessInfos.add(info);
       }

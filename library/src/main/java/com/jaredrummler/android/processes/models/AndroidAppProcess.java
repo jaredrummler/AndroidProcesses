@@ -27,7 +27,10 @@ import java.io.IOException;
 public class AndroidAppProcess extends AndroidProcess {
 
   /** {@code true} if the process is in the foreground */
-  public final boolean foreground;
+  public boolean foreground;
+
+  /** The user id of this process. */
+  public int uid;
 
   private PackageInfo packageInfo;
 
@@ -42,6 +45,11 @@ public class AndroidAppProcess extends AndroidProcess {
       throw new NotAndroidAppProcessException(pid);
     }
     foreground = cpu.group.contains("bg_non_interactive");
+    try {
+      uid = Integer.parseInt(cpuacct.group.split("/")[1].replace("uid_", ""));
+    } catch (Exception e) {
+      uid = status().getUid();
+    }
   }
 
   /**
