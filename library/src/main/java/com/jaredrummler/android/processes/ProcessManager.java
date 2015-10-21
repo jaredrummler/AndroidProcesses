@@ -19,6 +19,7 @@ package com.jaredrummler.android.processes;
 
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Build;
 
 import com.jaredrummler.android.processes.models.AndroidAppProcess;
@@ -75,6 +76,47 @@ public class ProcessManager {
           continue;
         }
         try {
+          processes.add(new AndroidAppProcess(pid));
+        } catch (AndroidAppProcess.NotAndroidAppProcessException ignored) {
+        } catch (IOException e) {
+          // If you are running this from a third-party app, then system apps will not be
+          // readable on Android 5.0+ if SELinux is enforcing. You will need root access or an
+          // elevated SELinux context to read all files under /proc.
+          // See: https://su.chainfire.eu/#selinux
+        }
+      }
+    }
+    return processes;
+  }
+
+  public static List<AndroidAppProcess> getRunningForegroundApps(Context ctx) {
+    List<AndroidAppProcess> processes = new ArrayList<>();
+    File[] files = new File("/proc").listFiles();
+    PackageManager pm = ctx.getPackageManager();
+    for (File file : files) {
+      if (file.isDirectory()) {
+        int pid;
+        try {
+          pid = Integer.parseInt(file.getName());
+        } catch (NumberFormatException e) {
+          continue;
+        }
+        try {
+          AndroidAppProcess process = new AndroidAppProcess(pid);
+          if (!process.foreground) {
+            // Ignore processes not in the foreground
+            continue;
+          } else if (process.uid >= 1000 && process.uid <= 9999) {
+            // First app user starts at 10000. Ignore system processes.
+            continue;
+          } else if (process.name.contains(":")) {
+            // Ignore processes that are not running in the default app process.
+            continue;
+          } else if (pm.getLaunchIntentForPackage(process.getPackageName()) == null) {
+            // Ignore processes that the user cannot launch.
+            // TODO: remove this block?
+            continue;
+          }
           processes.add(new AndroidAppProcess(pid));
         } catch (AndroidAppProcess.NotAndroidAppProcessException ignored) {
         } catch (IOException e) {

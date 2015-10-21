@@ -19,7 +19,6 @@ package com.jaredrummler.android.processes.sample;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -31,7 +30,6 @@ import com.jaredrummler.android.processes.models.AndroidProcess;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.List;
 
 public class MainActivity extends Activity {
@@ -64,30 +62,17 @@ public class MainActivity extends Activity {
             sb.append(process.name).append(" ").append(process.pid).append('\n');
           }
           break;
-        } case R.id.btn_running_apps: {
+        }
+        case R.id.btn_running_apps: {
           List<AndroidAppProcess> processes = ProcessManager.getRunningAppProcesses();
           for (AndroidAppProcess process : processes) {
             sb.append(process.name).append('\n');
           }
           break;
-        } case R.id.btn_foreground_apps: {
-          List<AndroidAppProcess> processes = ProcessManager.getRunningAppProcesses();
-
-          PackageManager pm = getPackageManager();
-          for (Iterator<AndroidAppProcess> it = processes.iterator(); it.hasNext();) {
-            AndroidAppProcess process = it.next();
-            int uid = process.uid;
-            if (uid >= 1000 && uid <= 9999) {
-              // remove system process'
-              it.remove();
-            } else if (process.name.contains(":")) {
-              // remove processes that are not in the app's default process
-              it.remove();
-            } else if (pm.getLaunchIntentForPackage(process.getPackageName()) == null) {
-              // remove app's that don't have a launcher intent
-              it.remove();
-            }
-          }
+        }
+        case R.id.btn_foreground_apps: {
+          List<AndroidAppProcess> processes =
+              ProcessManager.getRunningForegroundApps(getApplicationContext());
 
           // sort by oom score
           Collections.sort(processes, new Comparator<AndroidAppProcess>() {
