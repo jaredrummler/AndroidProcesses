@@ -96,12 +96,13 @@ public final class Cgroup extends ProcFile {
 
   public static final Creator<Cgroup> CREATOR = new Creator<Cgroup>() {
 
-    public Cgroup createFromParcel(Parcel source) {
+    @Override public Cgroup createFromParcel(Parcel source) {
       return new Cgroup(source);
     }
 
-    public Cgroup[] newArray(int size) {
+    @Override public Cgroup[] newArray(int size) {
       return new Cgroup[size];
     }
   };
+
 }
