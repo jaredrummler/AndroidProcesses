@@ -145,6 +145,21 @@ public class ProcessManager {
   }
 
   /**
+   *
+   * @return {@code true} if this process is in the foreground.
+   */
+  public static boolean isMyProcessInTheForeground() {
+    List<AndroidAppProcess> processes = getRunningAppProcesses();
+    int myPid = android.os.Process.myPid();
+    for (AndroidAppProcess process : processes) {
+      if (process.pid == myPid && process.foreground) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
    * Returns a list of application processes that are running on the device.
    *
    * @return a list of RunningAppProcessInfo records, or null if there are no
