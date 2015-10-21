@@ -32,8 +32,6 @@ public class AndroidAppProcess extends AndroidProcess {
   /** The user id of this process. */
   public int uid;
 
-  private PackageInfo packageInfo;
-
   private final Cgroup cgroup;
 
   public AndroidAppProcess(int pid) throws IOException, NotAndroidAppProcessException {
@@ -61,6 +59,11 @@ public class AndroidAppProcess extends AndroidProcess {
   }
 
   /**
+   * Retrieve overall information about the application package.
+   *
+   * <p>Throws {@link PackageManager.NameNotFoundException} if a package with the given name can
+   * not be found on the system.</p>
+   *
    * @param context
    *     the application context
    * @param flags
@@ -73,15 +76,9 @@ public class AndroidAppProcess extends AndroidProcess {
    *     to modify the data returned.
    * @return a PackageInfo object containing information about the package.
    */
-  public PackageInfo getPackageInfo(Context context, int flags) {
-    if (packageInfo == null) {
-      try {
-        packageInfo = context.getPackageManager().getPackageInfo(getPackageName(), flags);
-      } catch (PackageManager.NameNotFoundException e) {
-        e.printStackTrace();
-      }
-    }
-    return packageInfo;
+  public PackageInfo getPackageInfo(Context context, int flags)
+      throws PackageManager.NameNotFoundException {
+    return context.getPackageManager().getPackageInfo(getPackageName(), flags);
   }
 
   @Override public Cgroup cgroup() {
@@ -91,14 +88,12 @@ public class AndroidAppProcess extends AndroidProcess {
   @Override public void writeToParcel(Parcel dest, int flags) {
     super.writeToParcel(dest, flags);
     dest.writeParcelable(cgroup, flags);
-    dest.writeParcelable(packageInfo, flags);
     dest.writeByte((byte) (foreground ? 0x01 : 0x00));
   }
 
   protected AndroidAppProcess(Parcel in) {
     super(in);
     cgroup = in.readParcelable(Cgroup.class.getClassLoader());
-    packageInfo = in.readParcelable(PackageInfo.class.getClassLoader());
     foreground = in.readByte() != 0x00;
   }
 
