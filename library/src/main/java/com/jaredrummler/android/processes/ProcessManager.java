@@ -131,7 +131,7 @@ public class ProcessManager {
             // TODO: remove this block?
             continue;
           }
-          processes.add(new AndroidAppProcess(pid));
+          processes.add(process);
         } catch (AndroidAppProcess.NotAndroidAppProcessException ignored) {
         } catch (IOException e) {
           // If you are running this from a third-party app, then system apps will not be
