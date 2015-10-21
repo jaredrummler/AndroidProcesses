@@ -9,22 +9,59 @@ As of Android 5.0, it has become increasingly difficult to get a list of running
 
 Using [UsageStatsManager](https://developer.android.com/reference/android/app/usage/UsageStatsManager.html), it is possible to get a list of running apps. However, this requires the user to grant your application special permissions in Settings. It has been reported that some OEMs have removed this setting.
 
-This library gets a list of running apps and doesn't require any permissions. See the [sample](https://github.com/jaredrummler/AndroidProcesses/blob/master/sample/src/main/java/com/jaredrummler/android/processes/sample/MainActivity.java) application for details. Download the sample [APK](https://github.com/jaredrummler/AndroidProcesses/blob/master/sample-apk/sample-debug.apk?raw=true) here (needs testing).
+This library gets a list of running apps and doesn't require any permissions. See the [sample](https://github.com/jaredrummler/AndroidProcesses/blob/master/sample/src/main/java/com/jaredrummler/android/processes/sample/MainActivity.java) application for details. Download the sample [APK](https://github.com/jaredrummler/AndroidProcesses/blob/master/sample-apk/sample.apk?raw=true).
 
 Download
 --------
 
-Download [the latest AAR](https://repo1.maven.org/maven2/com/jaredrummler/android-processes/1.0.0/android-processes-1.0.0.aar) or grab via Gradle:
+Download [the latest AAR](https://repo1.maven.org/maven2/com/jaredrummler/android-processes/1.0.1/android-processes-1.0.1.aar) or grab via Gradle:
 
 ```groovy
-compile 'com.jaredrummler:android-processes:1.0.0'
+compile 'com.jaredrummler:android-processes:1.0.1'
 ```
 or Maven:
 ```xml
 <dependency>
   <groupId>com.jaredrummler</groupId>
   <artifactId>android-processes</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
 </dependency>
+```
+
+Examples
+--------
+
+**Get a list of [RunningAppProcessInfo](http://developer.android.com/reference/android/app/ActivityManager.RunningAppProcessInfo.html):**
+
+```java
+List<ActivityManager.RunningAppProcessInfo> appProcesses = ProcessManager.getRunningAppProcessInfo(context);
+```
+
+**Check if your app is in the foreground:**
+
+```java
+if (ProcessManager.isMyProcessInTheForeground()) {
+  // do stuff
+}
+```
+
+**Get running apps and some information about them:**
+
+```java
+List<AndroidAppProcess> processes = ProcessManager.getRunningAppProcesses();
+for (AndroidAppProcess process : processes) {
+  String processName = process.name;
+  
+  Stat stat = process.stat();
+  int pid = stat.getPid();
+  int parentProcessId = stat.ppid();
+  long startTime = stat.stime();
+  int policy = stat.policy();
+  char state = stat.state();
+
+  Statm statm = process.statm();
+  long totalSizeOfProcess = statm.getSize();
+  long residentSetSize = statm.getResidentSetSize();
+}
 ```
 
