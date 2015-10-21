@@ -31,6 +31,11 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * Helper class to get a list of processes on Android.
+ *
+ * <p><b>Note:</b> Every method in this class should <i>not</i> be executed on the main thread.</p>
+ */
 public class ProcessManager {
 
   private ProcessManager() {
@@ -92,6 +97,12 @@ public class ProcessManager {
     return processes;
   }
 
+  /**
+   * Get a list of user apps running in the foreground.
+   *
+   * @param ctx the application context
+   * @return a list of user apps that are in the foreground.
+   */
   public static List<AndroidAppProcess> getRunningForegroundApps(Context ctx) {
     List<AndroidAppProcess> processes = new ArrayList<>();
     File[] files = new File("/proc").listFiles();
