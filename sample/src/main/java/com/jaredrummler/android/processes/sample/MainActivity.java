@@ -27,9 +27,7 @@ import com.jaredrummler.android.processes.ProcessManager;
 import com.jaredrummler.android.processes.models.AndroidAppProcess;
 import com.jaredrummler.android.processes.models.AndroidProcess;
 
-import java.io.IOException;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class MainActivity extends Activity {
@@ -59,7 +57,7 @@ public class MainActivity extends Activity {
         case R.id.btn_all_processes: {
           List<AndroidProcess> processes = ProcessManager.getRunningProcesses();
           for (AndroidProcess process : processes) {
-            sb.append(process.name).append(" ").append(process.pid).append('\n');
+            sb.append(process.name).append('\n');
           }
           break;
         }
@@ -73,27 +71,7 @@ public class MainActivity extends Activity {
         case R.id.btn_foreground_apps: {
           List<AndroidAppProcess> processes =
               ProcessManager.getRunningForegroundApps(getApplicationContext());
-
-          // sort by oom score
-          Collections.sort(processes, new Comparator<AndroidAppProcess>() {
-
-            @Override public int compare(AndroidAppProcess lhs, AndroidAppProcess rhs) {
-              try {
-                int score1 = lhs.oom_score_adj();
-                int score2 = rhs.oom_score_adj();
-                if (score1 < score2) {
-                  return -1;
-                } else if (score1 > score2) {
-                  return 1;
-                }
-                return lhs.name.compareToIgnoreCase(rhs.name);
-              } catch (IOException e) {
-                e.printStackTrace();
-                return lhs.name.compareToIgnoreCase(rhs.name);
-              }
-            }
-          });
-
+          Collections.sort(processes, new ProcessManager.ProcessComparator());
           for (AndroidAppProcess process : processes) {
             if (process.foreground) {
               sb.append(process.name).append('\n');

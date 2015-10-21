@@ -28,12 +28,16 @@ import com.jaredrummler.android.processes.models.AndroidProcess;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class ProcessManager {
 
+  private ProcessManager() {
+    throw new AssertionError("no instances");
+  }
+
   /**
-   *
    * @return a list of <i>all</i> processes running on the device.
    */
   public static List<AndroidProcess> getRunningProcesses() {
@@ -61,7 +65,6 @@ public class ProcessManager {
   }
 
   /**
-   *
    * @return a list of all running app processes on the device.
    */
   public static List<AndroidAppProcess> getRunningAppProcesses() {
@@ -153,6 +156,28 @@ public class ProcessManager {
     }
     ActivityManager am = (ActivityManager) ctx.getSystemService(Context.ACTIVITY_SERVICE);
     return am.getRunningAppProcesses();
+  }
+
+  /**
+   * Comparator to list processes with a lower oom_score_adj first.
+   *
+   * If the /proc/[pid]/oom_score_adj is not readable, then processes are sorted by name.
+   */
+  public static final class ProcessComparator implements Comparator<AndroidProcess> {
+
+    @Override public int compare(AndroidProcess lhs, AndroidProcess rhs) {
+      try {
+        int oomScoreAdj1 = lhs.oom_score_adj();
+        int oomScoreAdj2 = rhs.oom_score_adj();
+        if (oomScoreAdj1 < oomScoreAdj2) {
+          return -1;
+        } else if (oomScoreAdj1 > oomScoreAdj2) {
+          return 1;
+        }
+      } catch (IOException ignored) {
+      }
+      return lhs.name.compareToIgnoreCase(rhs.name);
+    }
   }
 
 }
