@@ -40,7 +40,7 @@ public class AndroidProcess implements Parcelable {
       cmdline = ProcFile.readFile(String.format("/proc/%d/cmdline", pid)).trim();
     } catch (IOException ignored) {
     }
-    if (TextUtils.isEmpty(cmdline) || "null".equals(cmdline)) {
+    if (TextUtils.isEmpty(cmdline)) {
       return Stat.get(pid).getComm();
     }
     return cmdline;

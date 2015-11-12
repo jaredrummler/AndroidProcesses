@@ -37,14 +37,20 @@ public class ProcFile extends File implements Parcelable {
    *     if an error occurred while reading.
    */
   protected static String readFile(String path) throws IOException {
-    StringBuilder output = new StringBuilder();
-    BufferedReader reader = new BufferedReader(new FileReader(path));
-    output.append(reader.readLine());
-    for (String line = reader.readLine(); line != null; line = reader.readLine()) {
-      output.append('\n').append(line);
+    BufferedReader reader = null;
+    try {
+      StringBuilder output = new StringBuilder();
+      reader = new BufferedReader(new FileReader(path));
+      for (String line = reader.readLine(), newLine = ""; line != null; line = reader.readLine()) {
+        output.append(newLine).append(line);
+        newLine = "\n";
+      }
+      return output.toString();
+    } finally {
+      if (reader != null) {
+        reader.close();
+      }
     }
-    reader.close();
-    return output.toString();
   }
 
   public final String content;
