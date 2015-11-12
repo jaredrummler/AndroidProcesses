@@ -14,17 +14,17 @@ This library gets a list of running apps and doesn't require any permissions. Se
 Download
 --------
 
-Download [the latest AAR](https://repo1.maven.org/maven2/com/jaredrummler/android-processes/1.0.1/android-processes-1.0.1.aar) or grab via Gradle:
+Download [the latest AAR](https://repo1.maven.org/maven2/com/jaredrummler/android-processes/1.0.2/android-processes-1.0.2.aar) or grab via Gradle:
 
 ```groovy
-compile 'com.jaredrummler:android-processes:1.0.1'
+compile 'com.jaredrummler:android-processes:1.0.2'
 ```
 or Maven:
 ```xml
 <dependency>
   <groupId>com.jaredrummler</groupId>
   <artifactId>android-processes</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.2</version>
 </dependency>
 ```
 
@@ -64,4 +64,3 @@ for (AndroidAppProcess process : processes) {
   long residentSetSize = statm.getResidentSetSize();
 }
 ```
-
