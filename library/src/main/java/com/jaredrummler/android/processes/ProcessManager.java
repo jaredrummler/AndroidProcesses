@@ -288,24 +288,12 @@ public class ProcessManager {
   }
 
   /**
-   * Comparator to list processes with a lower oom_score_adj first.
-   *
-   * If the /proc/[pid]/oom_score_adj is not readable, then processes are sorted by name.
+   * Comparator to list processes by name
    */
   public static final class ProcessComparator implements Comparator<AndroidProcess> {
 
-    @Override public int compare(AndroidProcess lhs, AndroidProcess rhs) {
-      try {
-        int oomScoreAdj1 = lhs.oom_score_adj();
-        int oomScoreAdj2 = rhs.oom_score_adj();
-        if (oomScoreAdj1 < oomScoreAdj2) {
-          return -1;
-        } else if (oomScoreAdj1 > oomScoreAdj2) {
-          return 1;
-        }
-      } catch (IOException ignored) {
-      }
-      return lhs.name.compareToIgnoreCase(rhs.name);
+    @Override public int compare(AndroidProcess p1, AndroidProcess p2) {
+      return p1.name.compareToIgnoreCase(p2.name);
     }
   }
 

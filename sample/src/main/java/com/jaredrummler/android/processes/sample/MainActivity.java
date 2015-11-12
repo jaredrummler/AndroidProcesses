@@ -56,6 +56,7 @@ public class MainActivity extends Activity {
       switch (params[0]) {
         case R.id.btn_all_processes: {
           List<AndroidProcess> processes = ProcessManager.getRunningProcesses();
+          Collections.sort(processes, new ProcessManager.ProcessComparator());
           for (AndroidProcess process : processes) {
             sb.append(process.name).append('\n');
           }
@@ -63,6 +64,7 @@ public class MainActivity extends Activity {
         }
         case R.id.btn_running_apps: {
           List<AndroidAppProcess> processes = ProcessManager.getRunningAppProcesses();
+          Collections.sort(processes, new ProcessManager.ProcessComparator());
           for (AndroidAppProcess process : processes) {
             sb.append(process.name).append('\n');
           }
