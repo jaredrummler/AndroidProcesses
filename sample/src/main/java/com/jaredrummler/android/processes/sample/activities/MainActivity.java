@@ -15,28 +15,20 @@
  *
  */
 
-apply plugin: 'com.android.application'
+package com.jaredrummler.android.processes.sample.activities;
 
-android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+import android.app.Activity;
+import android.os.Bundle;
 
-    defaultConfig {
-        applicationId "com.jaredrummler.android.processes.sample"
-        minSdkVersion 11
-        targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+import com.jaredrummler.android.processes.sample.fragments.ProcessListFragment;
+
+public class MainActivity extends Activity {
+
+  @Override protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    if (savedInstanceState == null) {
+      getFragmentManager().beginTransaction().add(android.R.id.content, new ProcessListFragment()).commit();
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-}
+  }
 
-dependencies {
-    compile 'com.squareup.picasso:picasso:2.5.2'
-    compile project(':library')
 }

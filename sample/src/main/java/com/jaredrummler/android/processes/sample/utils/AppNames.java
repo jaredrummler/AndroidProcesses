@@ -15,28 +15,24 @@
  *
  */
 
-apply plugin: 'com.android.application'
+package com.jaredrummler.android.processes.sample.utils;
 
-android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 
-    defaultConfig {
-        applicationId "com.jaredrummler.android.processes.sample"
-        minSdkVersion 11
-        targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+import java.util.Hashtable;
+
+public class AppNames {
+
+  static final Hashtable<String, String> APP_NAME_CACHE = new Hashtable<>();
+
+  public static String getLabel(PackageManager pm, PackageInfo packageInfo) {
+    if (APP_NAME_CACHE.containsKey(packageInfo.packageName)) {
+      return APP_NAME_CACHE.get(packageInfo.packageName);
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-}
+    String label = packageInfo.applicationInfo.loadLabel(pm).toString();
+    APP_NAME_CACHE.put(packageInfo.packageName, label);
+    return label;
+  }
 
-dependencies {
-    compile 'com.squareup.picasso:picasso:2.5.2'
-    compile project(':library')
 }

@@ -15,28 +15,20 @@
  *
  */
 
-apply plugin: 'com.android.application'
+package com.jaredrummler.android.processes.sample;
 
-android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+import android.app.Application;
 
-    defaultConfig {
-        applicationId "com.jaredrummler.android.processes.sample"
-        minSdkVersion 11
-        targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-}
+import com.jaredrummler.android.processes.sample.picasso.AppIconRequestHandler;
+import com.squareup.picasso.Picasso;
 
-dependencies {
-    compile 'com.squareup.picasso:picasso:2.5.2'
-    compile project(':library')
+public class App extends Application {
+
+  @Override public void onCreate() {
+    super.onCreate();
+    Picasso.setSingletonInstance(new Picasso.Builder(this)
+        .addRequestHandler(new AppIconRequestHandler(this))
+        .build());
+  }
+
 }
