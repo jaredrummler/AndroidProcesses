@@ -70,19 +70,15 @@ public class ProcessInfoDialog extends DialogFragment {
       Log.d(TAG, String.format("Error reading /proc/%d/status.", process.pid));
     }
 
-    // should probably be run on the UI thread.
+    // should probably be run in a background thread.
     try {
       Stat stat = process.stat();
       html.p().strong("PPID: ").append(stat.ppid()).close();
-
-      // calculate start time
       long bootTime = System.currentTimeMillis() - SystemClock.elapsedRealtime();
       long startTime = bootTime + (10 * stat.starttime());
       SimpleDateFormat sdf = new SimpleDateFormat("MMM d, yyyy KK:mm:ss a", Locale.getDefault());
       html.p().strong("START TIME: ").append(sdf.format(startTime)).close();
-
       html.p().strong("CPU TIME: ").append((stat.stime() + stat.utime()) / 100).close();
-
       html.p().strong("NICE: ").append(stat.nice()).close();
     } catch (IOException e) {
       Log.d(TAG, String.format("Error reading /proc/%d/stat.", process.pid));
