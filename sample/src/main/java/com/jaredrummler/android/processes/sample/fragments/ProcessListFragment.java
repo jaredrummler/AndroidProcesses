@@ -35,6 +35,7 @@ public class ProcessListFragment extends ListFragment implements AndroidAppProce
   @Override public void onActivityCreated(Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
     getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+    getListView().setFastScrollEnabled(true);
     new AndroidAppProcessLoader(getActivity(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
   }
 
