@@ -12,7 +12,7 @@ As of Android 5.0, it has become increasingly difficult to get a list of running
 
 Using [UsageStatsManager](https://developer.android.com/reference/android/app/usage/UsageStatsManager.html), it is possible to get a list of running apps. However, this requires the user to grant your application special permissions in Settings. It has been reported that some OEMs have removed this setting.
 
-This library gets a list of running apps and doesn't require any permissions. See the [sample](https://github.com/jaredrummler/AndroidProcesses/blob/master/sample/src/main/java/com/jaredrummler/android/processes/sample/MainActivity.java) application for details. Download the sample [APK](https://github.com/jaredrummler/AndroidProcesses/blob/master/sample-apk/sample.apk?raw=true).
+This library gets a list of running apps and doesn't require any permissions. See the [sample](https://github.com/jaredrummler/AndroidProcesses/blob/master/sample/src/main/java/com/jaredrummler/android/processes/sample/activities/MainActivity.java) application for details. Download the sample [APK](https://github.com/jaredrummler/AndroidProcesses/blob/master/sample-apk/sample.apk?raw=true).
 
 Usage
 -----
