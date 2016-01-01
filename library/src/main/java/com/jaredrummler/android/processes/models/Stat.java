@@ -627,21 +627,16 @@ public final class Stat extends ProcFile {
     /**
      * Returns either Real-time or non-real-time depending on process' scheduling policy.
      */
-
   public String sched_policy() {
-
     int rt_priority= rt_priority();
 
     if (rt_priority == 0) {
       return "Non-real-time";
     }
-
     if (1 <= rt_priority && rt_priority <= 99) {
       return "Real-time";
     }
-
     return "Error";
-
   }
 
   @Override public int describeContents() {
