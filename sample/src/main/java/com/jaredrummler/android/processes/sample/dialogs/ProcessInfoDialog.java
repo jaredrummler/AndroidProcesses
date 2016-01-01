@@ -62,7 +62,6 @@ public class ProcessInfoDialog extends DialogFragment {
     html.p().strong("NAME: ").append(process.name).close();
     html.p().strong("POLICY: ").append(process.foreground ? "fg" : "bg").close();
     html.p().strong("PID: ").append(process.pid).close();
-
     try {
       Status status = process.status();
       html.p().strong("UID/GID: ").append(status.getUid()).append('/').append(status.getGid()).close();
@@ -80,6 +79,7 @@ public class ProcessInfoDialog extends DialogFragment {
       html.p().strong("START TIME: ").append(sdf.format(startTime)).close();
       html.p().strong("CPU TIME: ").append((stat.stime() + stat.utime()) / 100).close();
       html.p().strong("NICE: ").append(stat.nice()).close();
+      html.p().strong("SCHED POLICY: ").append(stat.sched_policy()).close();
     } catch (IOException e) {
       Log.d(TAG, String.format("Error reading /proc/%d/stat.", process.pid));
     }
