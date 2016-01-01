@@ -8,19 +8,39 @@ ___
 Why would I need this?
 ----------------------
 
-As of Android 5.0, it has become increasingly difficult to get a list of running apps. [`getRunningTasks(int)`](http://developer.android.com/intl/zh-cn/reference/android/app/ActivityManager.html#getRunningTasks(int)) is now deprecated. Android 5.1.1+ killed [`getRunningAppProcesses()`](http://developer.android.com/intl/zh-cn/reference/android/app/ActivityManager.html#getRunningAppProcesses()) (as of Android 5.1.1+ it only returns your app). The documentation hasn't changed and Google is ignoring requests to either update the documentation or restore the original implementation. 
+Android 5.0+ killed [`getRunningTasks(int)`](http://developer.android.com/intl/zh-cn/reference/android/app/ActivityManager.html#getRunningTasks(int)) and [`getRunningAppProcesses()`](http://developer.android.com/intl/zh-cn/reference/android/app/ActivityManager.html#getRunningAppProcesses()). Both of those methods are now deprecated and only return your application process. You can get a list of running apps using [UsageStatsManager](https://developer.android.com/reference/android/app/usage/UsageStatsManager.html), however, this requires your users to grant your application a special permission in Settings. It has been reported that some OEMs have removed this preference.
 
-Using [UsageStatsManager](https://developer.android.com/reference/android/app/usage/UsageStatsManager.html), it is possible to get a list of running apps. However, this requires the user to grant your application special permissions in Settings. It has been reported that some OEMs have removed this setting.
+This small library can get a list of running apps and does not require any permissions.
 
-This library gets a list of running apps and doesn't require any permissions. See the [sample](https://github.com/jaredrummler/AndroidProcesses/blob/master/sample/src/main/java/com/jaredrummler/android/processes/sample/activities/MainActivity.java) application for details. Download the sample [APK](https://github.com/jaredrummler/AndroidProcesses/blob/master/sample-apk/sample.apk?raw=true).
+Install the sample [APK](https://github.com/jaredrummler/AndroidProcesses/blob/master/sample-apk/sample.apk?raw=true) or view the [sample](https://github.com/jaredrummler/AndroidProcesses/blob/master/sample/src/main/java/com/jaredrummler/android/processes/sample/activities/) code.
 
 Usage
 -----
 
-**Get a list of [RunningAppProcessInfo](http://developer.android.com/reference/android/app/ActivityManager.RunningAppProcessInfo.html):**
+**Get a list of running apps:**
 
 ```java
-List<ActivityManager.RunningAppProcessInfo> appProcesses = ProcessManager.getRunningAppProcessInfo(context);
+List<AndroidAppProcess> processes = ProcessManager.getRunningAppProcesses();
+```
+
+**Get some information about a process**
+```java
+AndroidAppProcess process = processes.get(location);
+String processName = process.name;
+
+Stat stat = process.stat();
+int pid = stat.getPid();
+int parentProcessId = stat.ppid();
+long startTime = stat.stime();
+int policy = stat.policy();
+char state = stat.state();
+
+Statm statm = process.statm();
+long totalSizeOfProcess = statm.getSize();
+long residentSetSize = statm.getResidentSetSize();
+
+PackageInfo packageInfo = process.getPackageInfo(context, 0);
+String appName = packageInfo.applicationInfo.loadLabel(pm).toString();
 ```
 
 **Check if your app is in the foreground:**
@@ -31,25 +51,12 @@ if (ProcessManager.isMyProcessInTheForeground()) {
 }
 ```
 
-**Get running apps and some information about them:**
+Limitations
+-----------
 
-```java
-List<AndroidAppProcess> processes = ProcessManager.getRunningAppProcesses();
-for (AndroidAppProcess process : processes) {
-  String processName = process.name;
-  
-  Stat stat = process.stat();
-  int pid = stat.getPid();
-  int parentProcessId = stat.ppid();
-  long startTime = stat.stime();
-  int policy = stat.policy();
-  char state = stat.state();
+System apps may not be visible because they have a higher SELinux context then third party apps.
 
-  Statm statm = process.statm();
-  long totalSizeOfProcess = statm.getSize();
-  long residentSetSize = statm.getResidentSetSize();
-}
-```
+Some information that was available through  [ActivityManager#getRunningAppProcesses()](http://developer.android.com/intl/zh-cn/reference/android/app/ActivityManager.html#getRunningAppProcesses()) is not available using this library ([pkgList](http://developer.android.com/reference/android/app/ActivityManager.RunningAppProcessInfo.html#pkgList), [lru](http://developer.android.com/intl/zh-cn/reference/android/app/ActivityManager.RunningAppProcessInfo.html#lru), [importance](http://developer.android.com/intl/zh-cn/reference/android/app/ActivityManager.RunningAppProcessInfo.html#importance), etc.).
 
 Download
 --------
