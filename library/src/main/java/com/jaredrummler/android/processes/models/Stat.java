@@ -630,13 +630,13 @@ public final class Stat extends ProcFile {
 
   public String sched_policy() {
 
-    int rt_policy = rt_priority();
+    int rt_priority= rt_priority();
 
-    if (rt_policy == 0) {
+    if (rt_priority == 0) {
       return "Non-real-time";
     }
 
-    if (1 <= rt_policy && rt_policy <= 99) {
+    if (1 <= rt_priority && rt_priority <= 99) {
       return "Real-time";
     }
 
