@@ -80,6 +80,12 @@ public class ProcessInfoDialog extends DialogFragment {
       html.p().strong("START TIME: ").append(sdf.format(startTime)).close();
       html.p().strong("CPU TIME: ").append((stat.stime() + stat.utime()) / 100).close();
       html.p().strong("NICE: ").append(stat.nice()).close();
+      int rtPriority = stat.rt_priority();
+      if (rtPriority == 0) {
+        html.p().strong("SCHEDULING PRIORITY: ").append("non-real-time").close();
+      } else if (rtPriority >= 1 && rtPriority <= 99) {
+        html.p().strong("SCHEDULING PRIORITY: ").append("real-time").close();
+      }
     } catch (IOException e) {
       Log.d(TAG, String.format("Error reading /proc/%d/stat.", process.pid));
     }
