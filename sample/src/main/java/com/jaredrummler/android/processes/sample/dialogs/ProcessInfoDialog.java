@@ -86,6 +86,16 @@ public class ProcessInfoDialog extends DialogFragment {
       } else if (rtPriority >= 1 && rtPriority <= 99) {
         html.p().strong("SCHEDULING PRIORITY: ").append("real-time").close();
       }
+      long userModeTicks = stat.utime();
+      long kernelModeTicks = stat.stime();
+      long percentOfTimeUserMode;
+      long percentOfTimeKernelMode;
+      if ((kernelModeTicks + userModeTicks) > 0) {
+        percentOfTimeUserMode = (userModeTicks * 100) / (userModeTicks + kernelModeTicks);
+        percentOfTimeKernelMode = (kernelModeTicks * 100) / (userModeTicks + kernelModeTicks);
+        html.p().strong("TIME EXECUTED IN USER MODE: ").append(percentOfTimeUserMode + "%").close();
+        html.p().strong("TIME EXECUTED IN KERNEL MODE: ").append(percentOfTimeKernelMode + "%").close();
+      }
     } catch (IOException e) {
       Log.d(TAG, String.format("Error reading /proc/%d/stat.", process.pid));
     }
