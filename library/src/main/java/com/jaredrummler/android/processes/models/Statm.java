@@ -77,10 +77,6 @@ public final class Statm extends ProcFile {
     return Long.parseLong(fields[1]) * 1024;
   }
 
-  @Override public int describeContents() {
-    return 0;
-  }
-
   @Override public void writeToParcel(Parcel dest, int flags) {
     super.writeToParcel(dest, flags);
     dest.writeStringArray(this.fields);
@@ -96,4 +92,5 @@ public final class Statm extends ProcFile {
       return new Statm[size];
     }
   };
+
 }

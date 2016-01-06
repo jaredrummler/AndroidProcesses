@@ -17,6 +17,8 @@
 
 package com.jaredrummler.android.processes.models;
 
+import android.os.Parcel;
+
 import java.io.IOException;
 
 /**
@@ -146,6 +148,10 @@ public final class Status extends ProcFile {
     super(path);
   }
 
+  private Status(Parcel in) {
+    super(in);
+  }
+
   /**
    * Get the value of one of the fields.
    *
@@ -184,5 +190,16 @@ public final class Status extends ProcFile {
       return -1;
     }
   }
+
+  public static final Creator<Status> CREATOR = new Creator<Status>() {
+
+    @Override public Status createFromParcel(Parcel source) {
+      return new Status(source);
+    }
+
+    @Override public Status[] newArray(int size) {
+      return new Status[size];
+    }
+  };
 
 }
