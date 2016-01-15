@@ -206,6 +206,7 @@ public class ProcessManager {
    *   List&lt;AndroidProcess&gt; processes = filter.run();
    * </pre>
    */
+  @Deprecated
   public static class Filter {
 
     private String name;
@@ -218,6 +219,7 @@ public class ProcessManager {
      *     The name of the process to filter
      * @return This Filter object to allow for chaining of calls to set methods
      */
+    @Deprecated
     public Filter setName(String name) {
       this.name = name;
       return this;
@@ -228,6 +230,7 @@ public class ProcessManager {
      *     The process id to filter
      * @return This Filter object to allow for chaining of calls to set methods
      */
+    @Deprecated
     public Filter setPid(int pid) {
       this.pid = pid;
       return this;
@@ -238,6 +241,7 @@ public class ProcessManager {
      *     The parent process id to filter
      * @return This Filter object to allow for chaining of calls to set methods
      */
+    @Deprecated
     public Filter setPpid(int ppid) {
       this.ppid = ppid;
       return this;
@@ -248,6 +252,7 @@ public class ProcessManager {
      *     {@code true} to only filter app processes
      * @return This Filter object to allow for chaining of calls to set methods
      */
+    @Deprecated
     public Filter setApps(boolean apps) {
       this.apps = apps;
       return this;
@@ -256,6 +261,7 @@ public class ProcessManager {
     /**
      * @return a List of processes based on the filter options.
      */
+    @Deprecated
     public List<AndroidProcess> run() {
       List<AndroidProcess> processes = new ArrayList<>();
       File[] files = new File("/proc").listFiles();
@@ -306,6 +312,7 @@ public class ProcessManager {
     @Override public int compare(AndroidProcess p1, AndroidProcess p2) {
       return p1.name.compareToIgnoreCase(p2.name);
     }
+
   }
 
 }
