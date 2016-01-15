@@ -18,6 +18,7 @@
 package com.jaredrummler.android.processes;
 
 import android.app.ActivityManager;
+import android.app.ActivityManager.RunningAppProcessInfo;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -162,16 +163,26 @@ public class ProcessManager {
   /**
    * Returns a list of application processes that are running on the device.
    *
+   * <p><b>NOTE:</b> On Lollipop (SDK 22) this does not provide
+   * {@link RunningAppProcessInfo#pkgList},
+   * {@link RunningAppProcessInfo#importance},
+   * {@link RunningAppProcessInfo#lru},
+   * {@link RunningAppProcessInfo#importanceReasonCode},
+   * {@link RunningAppProcessInfo#importanceReasonComponent},
+   * {@link RunningAppProcessInfo#importanceReasonPid},
+   * etc. If you need more process information try using
+   * {@link #getRunningAppProcesses()} or {@link android.app.usage.UsageStatsManager}</p>
+   *
    * @return a list of RunningAppProcessInfo records, or null if there are no
    * running processes (it will not return an empty list).  This list ordering is not
    * specified.
    */
-  public static List<ActivityManager.RunningAppProcessInfo> getRunningAppProcessInfo(Context ctx) {
+  public static List<RunningAppProcessInfo> getRunningAppProcessInfo(Context ctx) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
       List<AndroidAppProcess> runningAppProcesses = ProcessManager.getRunningAppProcesses();
-      List<ActivityManager.RunningAppProcessInfo> appProcessInfos = new ArrayList<>();
+      List<RunningAppProcessInfo> appProcessInfos = new ArrayList<>();
       for (AndroidAppProcess process : runningAppProcesses) {
-        ActivityManager.RunningAppProcessInfo info = new ActivityManager.RunningAppProcessInfo(
+        RunningAppProcessInfo info = new RunningAppProcessInfo(
             process.name, process.pid, null
         );
         info.uid = process.uid;
