@@ -9,6 +9,8 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
 
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -38,8 +40,8 @@
 <h3>
 <a id="examples" class="anchor" href="#examples" aria-hidden="true"><span class="octicon octicon-link"></span></a>Examples</h3>
 
-<pre><code>
-List<AndroidAppProcess> processes = ProcessManager.getRunningAppProcesses();
+<pre class="prettyprint lang-java">
+List&lt;AndroidAppProcess> processes = ProcessManager.getRunningAppProcesses();
 for (AndroidAppProcess process : processes) {
   String processName = process.name;
 
@@ -57,8 +59,7 @@ for (AndroidAppProcess process : processes) {
   PackageInfo packageInfo = process.getPackageInfo(context, 0);
   String appName = packageInfo.applicationInfo.loadLabel(pm).toString();
 }
-
-</pre></code>
+</pre>
 
 <h3>
 <a id="download" class="anchor" href="#download" aria-hidden="true"><span class="octicon octicon-link"></span></a>Download</h3>
@@ -66,17 +67,18 @@ for (AndroidAppProcess process : processes) {
 <pre class="prettyprint">compile 'com.jaredrummler:android-processes:<span class="version pln"><em>(insert latest version)</em></span>'</pre>
 
 <b>Maven</b>
-<pre><code>&lt;dependency&gt;
+<pre class="prettyprint">
+&lt;dependency&gt;
   &lt;groupId&gt;com.jaredrummler&lt;/groupId&gt;
   &lt;artifactId&gt;android-processes&lt;/artifactId&gt;
   &lt;version&gt;(insert latest version)&lt;/version&gt;
 &lt;/dependency&gt;
-</code></pre>
+</pre>
 
 
 <h3><a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h3>
 
-<pre><code>
+<pre>
 Copyright (C) 2015 Jared Rummler
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -90,7 +92,7 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-</code></pre>
+</pre>
         </section>
 
         <aside id="sidebar">
