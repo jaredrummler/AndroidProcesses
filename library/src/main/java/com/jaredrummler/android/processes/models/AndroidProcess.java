@@ -150,7 +150,25 @@ public class AndroidProcess implements Parcelable {
   }
 
   /**
-   * <p>/proc/[pid]/oom_score</p>
+   * <p>/proc/[pid]/oom_score (since Linux 2.6.11)</p>
+   *
+   * <p>This file displays the current score that the kernel gives to this process for the
+   * purpose of selecting a process for the OOM-killer. A higher score means that the
+   * process is more likely to be selected by the OOM-killer.</p>
+   *
+   * <p>The basis for this score is the amount of memory used by the process, with
+   * increases (+) or decreases (-) for factors including:</p>
+   *
+   * <ul>
+   * <li>whether the process creates a lot of children using fork(2)(+);</li>
+   * <li>whether the process has been running a long time, or has used a lot of CPU time (-);</li>
+   * <li>whether the process has a low nice value (i.e., > 0) (+);</li>
+   * <li>whether the process is privileged (-); and</li>
+   * <li>whether the process is making direct hardware access (-).</li>
+   * </ul>
+   *
+   * <p>The oom_score also reflects the adjustment specified by the oom_score_adj
+   * or oom_adj setting for the process.</p>
    *
    * @return the oom_score value for this process
    * @throws IOException
