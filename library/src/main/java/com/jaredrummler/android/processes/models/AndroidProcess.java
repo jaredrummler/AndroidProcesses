@@ -162,7 +162,7 @@ public class AndroidProcess implements Parcelable {
    * <ul>
    * <li>whether the process creates a lot of children using fork(2)(+);</li>
    * <li>whether the process has been running a long time, or has used a lot of CPU time (-);</li>
-   * <li>whether the process has a low nice value (i.e., > 0) (+);</li>
+   * <li>whether the process has a low nice value (i.e., &gt; 0) (+);</li>
    * <li>whether the process is privileged (-); and</li>
    * <li>whether the process is making direct hardware access (-).</li>
    * </ul>
