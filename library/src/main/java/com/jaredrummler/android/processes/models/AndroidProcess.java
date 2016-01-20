@@ -150,6 +150,17 @@ public class AndroidProcess implements Parcelable {
   }
 
   /**
+   * <p>/proc/[pid]/oom_score</p>
+   *
+   * @return the oom_score value for this process
+   * @throws IOException
+   *     if the file does not exist or we don't have read permissions.
+   */
+  public int oom_score() throws IOException {
+    return Integer.parseInt(read("oom_score"));
+  }
+
+  /**
    * <p>/proc/[pid]/oom_adj (since Linux 2.6.11)</p>
    *
    * <p>This file can be used to adjust the score used to select which process should be killed in
