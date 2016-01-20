@@ -176,6 +176,8 @@ public class ProcessManager {
    * @return a list of RunningAppProcessInfo records, or null if there are no
    * running processes (it will not return an empty list).  This list ordering is not
    * specified.
+   *
+   * @param ctx the application context
    */
   public static List<RunningAppProcessInfo> getRunningAppProcessInfo(Context ctx) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
