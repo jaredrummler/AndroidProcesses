@@ -109,6 +109,12 @@ public class ProcessInfoDialog extends DialogFragment {
     }
 
     try {
+      html.p().strong("OOM SCORE: ").append(process.oom_score()).close();
+    } catch (IOException e) {
+      Log.d(TAG, String.format("Error reading /proc/%d/oom_score.", process.pid));
+    }
+
+    try {
       html.p().strong("OOM ADJ: ").append(process.oom_adj()).close();
     } catch (IOException e) {
       Log.d(TAG, String.format("Error reading /proc/%d/oom_adj.", process.pid));
