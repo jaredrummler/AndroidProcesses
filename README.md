@@ -12,8 +12,6 @@ Android 5.0+ killed [`getRunningTasks(int)`](http://developer.android.com/intl/z
 
 This small library can get a list of running apps and does not require any permissions.
 
-Install the sample [APK](https://github.com/jaredrummler/AndroidProcesses/blob/master/sample-apk/sample.apk?raw=true) or view the [sample](https://github.com/jaredrummler/AndroidProcesses/blob/master/sample/src/main/java/com/jaredrummler/android/processes/sample/activities/) code.
-
 Usage
 -----
 
