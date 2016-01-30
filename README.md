@@ -65,17 +65,17 @@ Some information that was available through  [ActivityManager#getRunningAppProce
 Download
 --------
 
-Download [the latest AAR](https://repo1.maven.org/maven2/com/jaredrummler/android-processes/1.0.3/android-processes-1.0.3.aar) or grab via Gradle:
+Download [the latest AAR](https://repo1.maven.org/maven2/com/jaredrummler/android-processes/1.0.5/android-processes-1.0.5.aar) or grab via Gradle:
 
 ```groovy
-compile 'com.jaredrummler:android-processes:1.0.3'
+compile 'com.jaredrummler:android-processes:1.0.5'
 ```
 or Maven:
 ```xml
 <dependency>
   <groupId>com.jaredrummler</groupId>
   <artifactId>android-processes</artifactId>
-  <version>1.0.3</version>
+  <version>1.0.5</version>
   <type>aar</type>
 </dependency>
 ```
