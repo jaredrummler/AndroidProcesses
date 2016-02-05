@@ -38,18 +38,30 @@ public class AndroidAppProcess extends AndroidProcess {
 
   public AndroidAppProcess(int pid) throws IOException, NotAndroidAppProcessException {
     super(pid);
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && SYS_SUPPORTS_SCHEDGROUPS) {
-      Cgroup cgroup = super.cgroup();
+    if (SYS_SUPPORTS_SCHEDGROUPS) {
+      Cgroup cgroup = cgroup();
       ControlGroup cpuacct = cgroup.getGroup("cpuacct");
       ControlGroup cpu = cgroup.getGroup("cpu");
-      if (cpu == null || cpuacct == null || !cpuacct.group.contains("pid_")) {
-        throw new NotAndroidAppProcessException(pid);
-      }
-      foreground = !cpu.group.contains("bg_non_interactive");
-      try {
-        uid = Integer.parseInt(cpuacct.group.split("/")[1].replace("uid_", ""));
-      } catch (Exception e) {
-        uid = status().getUid();
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (cpu == null || cpuacct == null || !cpuacct.group.contains("pid_")) {
+          throw new NotAndroidAppProcessException(pid);
+        }
+        foreground = !cpu.group.contains("bg_non_interactive");
+        try {
+          uid = Integer.parseInt(cpuacct.group.split("/")[1].replace("uid_", ""));
+        } catch (Exception e) {
+          uid = status().getUid();
+        }
+      } else {
+        if (cpu == null || cpuacct == null || !cpu.group.contains("apps")) {
+          throw new NotAndroidAppProcessException(pid);
+        }
+        foreground = !cpu.group.contains("bg_non_interactive");
+        try {
+          uid = Integer.parseInt(cpuacct.group.substring(cpuacct.group.lastIndexOf("/") + 1));
+        } catch (Exception e) {
+          uid = status().getUid();
+        }
       }
     } else {
       // this is a really ugly way to check if the process is an application.
