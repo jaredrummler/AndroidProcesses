@@ -31,13 +31,16 @@ public class AndroidAppProcess extends AndroidProcess {
   private static final boolean SYS_SUPPORTS_SCHEDGROUPS = new File("/dev/cpuctl/tasks").exists();
 
   /** {@code true} if the process is in the foreground */
-  public boolean foreground;
+  public final boolean foreground;
 
   /** The user id of this process. */
-  public int uid;
+  public final int uid;
 
   public AndroidAppProcess(int pid) throws IOException, NotAndroidAppProcessException {
     super(pid);
+    boolean foreground;
+    int uid;
+
     if (SYS_SUPPORTS_SCHEDGROUPS) {
       Cgroup cgroup = cgroup();
       ControlGroup cpuacct = cgroup.getGroup("cpuacct");
@@ -75,6 +78,9 @@ public class AndroidAppProcess extends AndroidProcess {
       foreground = stat.policy() == 0; // SCHED_NORMAL
       uid = status.getUid();
     }
+
+    this.foreground = foreground;
+    this.uid = uid;
   }
 
   /**
@@ -111,11 +117,13 @@ public class AndroidAppProcess extends AndroidProcess {
   @Override public void writeToParcel(Parcel dest, int flags) {
     super.writeToParcel(dest, flags);
     dest.writeByte((byte) (foreground ? 0x01 : 0x00));
+    dest.writeInt(uid);
   }
 
   protected AndroidAppProcess(Parcel in) {
     super(in);
     foreground = in.readByte() != 0x00;
+    uid = in.readInt();
   }
 
   public static final Creator<AndroidAppProcess> CREATOR = new Creator<AndroidAppProcess>() {
