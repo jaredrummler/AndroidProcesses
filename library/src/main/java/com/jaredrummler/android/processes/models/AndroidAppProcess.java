@@ -66,7 +66,7 @@ public class AndroidAppProcess extends AndroidProcess {
     } else {
       // this is a really ugly way to check if the process is an application.
       // we could possibly check the UID name (starts with "app_" or "u<USER_ID>_a")
-      if (name.startsWith("/") || !new File("/data/data", name).exists()) {
+      if (name.startsWith("/") || !new File("/data/data", getPackageName()).exists()) {
         throw new NotAndroidAppProcessException(pid);
       }
       Stat stat = stat();
