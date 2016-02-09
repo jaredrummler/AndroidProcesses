@@ -1,6 +1,6 @@
 # AndroidProcesses
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.jaredrummler/android-processes/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.jaredrummler/android-processes) [![License](http://img.shields.io/:license-apache-blue.svg)](LICENSE.txt) [![API](https://img.shields.io/badge/API-4%2B-blue.svg?style=flat)](https://android-arsenal.com/api?level=4) <a href="http://www.methodscount.com/?lib=com.jaredrummler%3Aandroid-processes%3A1.0.2" target="_blank"><img src="https://img.shields.io/badge/method count-224-e91e63.svg"></img></a> <a href="http://www.methodscount.com/?lib=com.jaredrummler%3Aandroid-processes%3A1.0.2" target="_blank"><img src="https://img.shields.io/badge/size-22 KB-e91e63.svg"></img></a>
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.jaredrummler/android-processes/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.jaredrummler/android-processes) [![License](http://img.shields.io/:license-apache-blue.svg)](LICENSE.txt) [![API](https://img.shields.io/badge/API-4%2B-blue.svg?style=flat)](https://android-arsenal.com/api?level=4) <a href="http://www.methodscount.com/?lib=com.jaredrummler%3Aandroid-processes%3A1.0.6" target="_blank"><img src="https://img.shields.io/badge/method count-227-e91e63.svg"></img></a> <a href="http://www.methodscount.com/?lib=com.jaredrummler%3Aandroid-processes%3A1.0.6" target="_blank"><img src="https://img.shields.io/badge/size-22 KB-e91e63.svg"></img></a>
 
 A small library to get the current running processes on Android
 ___
@@ -65,17 +65,17 @@ Some information that was available through  [ActivityManager#getRunningAppProce
 Download
 --------
 
-Download [the latest AAR](https://repo1.maven.org/maven2/com/jaredrummler/android-processes/1.0.5/android-processes-1.0.5.aar) or grab via Gradle:
+Download [the latest AAR](https://repo1.maven.org/maven2/com/jaredrummler/android-processes/1.0.6/android-processes-1.0.6.aar) or grab via Gradle:
 
 ```groovy
-compile 'com.jaredrummler:android-processes:1.0.5'
+compile 'com.jaredrummler:android-processes:1.0.6'
 ```
 or Maven:
 ```xml
 <dependency>
   <groupId>com.jaredrummler</groupId>
   <artifactId>android-processes</artifactId>
-  <version>1.0.5</version>
+  <version>1.0.6</version>
   <type>aar</type>
 </dependency>
 ```
