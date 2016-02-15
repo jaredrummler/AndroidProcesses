@@ -21,7 +21,8 @@ Usage
 List<AndroidAppProcess> processes = ProcessManager.getRunningAppProcesses();
 ```
 
-**Get some information about a process**
+**Get some information about a process:**
+
 ```java
 AndroidAppProcess process = processes.get(location);
 String processName = process.name;
@@ -49,7 +50,7 @@ if (ProcessManager.isMyProcessInTheForeground()) {
 }
 ```
 
-**Get a list of application processes that are running on the device.**
+**Get a list of application processes that are running on the device:**
 
 ```java
 List<ActivityManager.RunningAppProcessInfo> processes = ProcessManager.getRunningAppProcessInfo(ctx);
@@ -58,7 +59,7 @@ List<ActivityManager.RunningAppProcessInfo> processes = ProcessManager.getRunnin
 Limitations
 -----------
 
-System apps may not be visible because they have a higher SELinux context then third party apps.
+System apps may not be visible because they have a higher SELinux context than third party apps.
 
 Some information that was available through  [ActivityManager#getRunningAppProcesses()](http://developer.android.com/intl/zh-cn/reference/android/app/ActivityManager.html#getRunningAppProcesses()) is not available using this library ([pkgList](http://developer.android.com/reference/android/app/ActivityManager.RunningAppProcessInfo.html#pkgList), [lru](http://developer.android.com/intl/zh-cn/reference/android/app/ActivityManager.RunningAppProcessInfo.html#lru), [importance](http://developer.android.com/intl/zh-cn/reference/android/app/ActivityManager.RunningAppProcessInfo.html#importance), etc.).
 
