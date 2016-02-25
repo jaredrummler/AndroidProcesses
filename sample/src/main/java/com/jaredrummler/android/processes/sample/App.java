@@ -19,6 +19,7 @@ package com.jaredrummler.android.processes.sample;
 
 import android.app.Application;
 
+import com.jaredrummler.android.processes.ProcessManager;
 import com.jaredrummler.android.processes.sample.picasso.AppIconRequestHandler;
 import com.squareup.picasso.Picasso;
 
@@ -26,6 +27,7 @@ public class App extends Application {
 
   @Override public void onCreate() {
     super.onCreate();
+    ProcessManager.setLoggingEnabled(true);
     Picasso.setSingletonInstance(new Picasso.Builder(this)
         .addRequestHandler(new AppIconRequestHandler(this))
         .build());

@@ -23,6 +23,8 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Parcel;
 
+import com.jaredrummler.android.processes.ProcessManager;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -38,7 +40,7 @@ public class AndroidAppProcess extends AndroidProcess {
 
   public AndroidAppProcess(int pid) throws IOException, NotAndroidAppProcessException {
     super(pid);
-    boolean foreground;
+    final boolean foreground;
     int uid;
 
     if (SYS_SUPPORTS_SCHEDGROUPS) {
@@ -55,6 +57,8 @@ public class AndroidAppProcess extends AndroidProcess {
         } catch (Exception e) {
           uid = status().getUid();
         }
+        ProcessManager.log("name=%s, pid=%d, uid=%d, foreground=%b, cpuacct=%s, cpu=%s",
+            name, pid, uid, foreground, cpuacct.toString(), cpu.toString());
       } else {
         if (cpu == null || cpuacct == null || !cpu.group.contains("apps")) {
           throw new NotAndroidAppProcessException(pid);
@@ -65,6 +69,8 @@ public class AndroidAppProcess extends AndroidProcess {
         } catch (Exception e) {
           uid = status().getUid();
         }
+        ProcessManager.log("name=%s, pid=%d, uid=%d foreground=%b, cpuacct=%s, cpu=%s",
+            name, pid, uid, foreground, cpuacct.toString(), cpu.toString());
       }
     } else {
       // this is a really ugly way to check if the process is an application.
@@ -77,6 +83,7 @@ public class AndroidAppProcess extends AndroidProcess {
       // https://github.com/android/platform_system_core/blob/jb-mr1-release/libcutils/sched_policy.c#L245-256
       foreground = stat.policy() == 0; // SCHED_NORMAL
       uid = status.getUid();
+      ProcessManager.log("name=%s, pid=%d, uid=%d foreground=%b", name, pid, uid, foreground);
     }
 
     this.foreground = foreground;

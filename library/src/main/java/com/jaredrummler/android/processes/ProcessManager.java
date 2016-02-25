@@ -22,6 +22,7 @@ import android.app.ActivityManager.RunningAppProcessInfo;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.util.Log;
 
 import com.jaredrummler.android.processes.models.AndroidAppProcess;
 import com.jaredrummler.android.processes.models.AndroidProcess;
@@ -39,8 +40,59 @@ import java.util.List;
  */
 public class ProcessManager {
 
-  private ProcessManager() {
-    throw new AssertionError("no instances");
+  public static final String TAG = "AndroidProcesses";
+
+  private static boolean loggingEnabled;
+
+  /**
+   * Toggle whether debug logging is enabled.
+   *
+   * @param enabled
+   *     {@code true} to enable logging. This should be only be used for debugging purposes.
+   * @see #isLoggingEnabled()
+   * @see #log(String, Object...)
+   * @see #log(Throwable, String, Object...)
+   */
+  public static void setLoggingEnabled(boolean enabled) {
+    loggingEnabled = enabled;
+  }
+
+  /**
+   * @return {@code true} if logging is enabled.
+   * @see #setLoggingEnabled(boolean)
+   */
+  public static boolean isLoggingEnabled() {
+    return loggingEnabled;
+  }
+
+  /**
+   * Send a log message if logging is enabled.
+   *
+   * @param message
+   *     the message to log
+   * @param args
+   *     list of arguments to pass to the formatter
+   */
+  public static void log(String message, Object... args) {
+    if (loggingEnabled) {
+      Log.d(TAG, args.length == 0 ? message : String.format(message, args));
+    }
+  }
+
+  /**
+   * Send a log message if logging is enabled.
+   *
+   * @param error
+   *     An exception to log
+   * @param message
+   *     the message to log
+   * @param args
+   *     list of arguments to pass to the formatter
+   */
+  public static void log(Throwable error, String message, Object... args) {
+    if (loggingEnabled) {
+      Log.d(TAG, args.length == 0 ? message : String.format(message, args), error);
+    }
   }
 
   /**
@@ -60,10 +112,9 @@ public class ProcessManager {
         try {
           processes.add(new AndroidProcess(pid));
         } catch (IOException e) {
-          // If you are running this from a third-party app, then system apps will not be
-          // readable on Android 5.0+ if SELinux is enforcing. You will need root access or an
-          // elevated SELinux context to read all files under /proc.
-          // See: https://su.chainfire.eu/#selinux
+          log(e, "Error reading from /proc/%d.", pid);
+          // System apps will not be readable on Android 5.0+ if SELinux is enforcing.
+          // You will need root access or an elevated SELinux context to read all files under /proc.
         }
       }
     }
@@ -88,10 +139,9 @@ public class ProcessManager {
           processes.add(new AndroidAppProcess(pid));
         } catch (AndroidAppProcess.NotAndroidAppProcessException ignored) {
         } catch (IOException e) {
-          // If you are running this from a third-party app, then system apps will not be
-          // readable on Android 5.0+ if SELinux is enforcing. You will need root access or an
-          // elevated SELinux context to read all files under /proc.
-          // See: https://su.chainfire.eu/#selinux
+          log(e, "Error reading from /proc/%d.", pid);
+          // System apps will not be readable on Android 5.0+ if SELinux is enforcing.
+          // You will need root access or an elevated SELinux context to read all files under /proc.
         }
       }
     }
@@ -136,10 +186,9 @@ public class ProcessManager {
           processes.add(process);
         } catch (AndroidAppProcess.NotAndroidAppProcessException ignored) {
         } catch (IOException e) {
-          // If you are running this from a third-party app, then system apps will not be
-          // readable on Android 5.0+ if SELinux is enforcing. You will need root access or an
-          // elevated SELinux context to read all files under /proc.
-          // See: https://su.chainfire.eu/#selinux
+          log(e, "Error reading from /proc/%d.", pid);
+          // System apps will not be readable on Android 5.0+ if SELinux is enforcing.
+          // You will need root access or an elevated SELinux context to read all files under /proc.
         }
       }
     }
@@ -184,9 +233,7 @@ public class ProcessManager {
       List<AndroidAppProcess> runningAppProcesses = ProcessManager.getRunningAppProcesses();
       List<RunningAppProcessInfo> appProcessInfos = new ArrayList<>();
       for (AndroidAppProcess process : runningAppProcesses) {
-        RunningAppProcessInfo info = new RunningAppProcessInfo(
-            process.name, process.pid, null
-        );
+        RunningAppProcessInfo info = new RunningAppProcessInfo(process.name, process.pid, null);
         info.uid = process.uid;
         // TODO: Get more information about the process. pkgList, importance, lru, etc.
         appProcessInfos.add(info);
@@ -195,6 +242,10 @@ public class ProcessManager {
     }
     ActivityManager am = (ActivityManager) ctx.getSystemService(Context.ACTIVITY_SERVICE);
     return am.getRunningAppProcesses();
+  }
+
+  private ProcessManager() {
+    throw new AssertionError("no instances");
   }
 
   /**
