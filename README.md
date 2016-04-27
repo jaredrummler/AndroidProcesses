@@ -18,7 +18,7 @@ Usage
 **Get a list of running apps:**
 
 ```java
-List<AndroidAppProcess> processes = ProcessManager.getRunningAppProcesses();
+List<AndroidAppProcess> processes = AndroidProcesses.getRunningAppProcesses();
 ```
 
 **Get some information about a process:**
@@ -45,7 +45,7 @@ String appName = packageInfo.applicationInfo.loadLabel(pm).toString();
 **Check if your app is in the foreground:**
 
 ```java
-if (ProcessManager.isMyProcessInTheForeground()) {
+if (AndroidProcesses.isMyProcessInTheForeground()) {
   // do stuff
 }
 ```
@@ -53,7 +53,7 @@ if (ProcessManager.isMyProcessInTheForeground()) {
 **Get a list of application processes that are running on the device:**
 
 ```java
-List<ActivityManager.RunningAppProcessInfo> processes = ProcessManager.getRunningAppProcessInfo(ctx);
+List<ActivityManager.RunningAppProcessInfo> processes = AndroidProcesses.getRunningAppProcessInfo(ctx);
 ```
 
 Limitations

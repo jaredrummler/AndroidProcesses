@@ -23,7 +23,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Parcel;
 
-import com.jaredrummler.android.processes.ProcessManager;
+import com.jaredrummler.android.processes.AndroidProcesses;
 
 import java.io.File;
 import java.io.IOException;
@@ -57,7 +57,7 @@ public class AndroidAppProcess extends AndroidProcess {
         } catch (Exception e) {
           uid = status().getUid();
         }
-        ProcessManager.log("name=%s, pid=%d, uid=%d, foreground=%b, cpuacct=%s, cpu=%s",
+        AndroidProcesses.log("name=%s, pid=%d, uid=%d, foreground=%b, cpuacct=%s, cpu=%s",
             name, pid, uid, foreground, cpuacct.toString(), cpu.toString());
       } else {
         if (cpu == null || cpuacct == null || !cpu.group.contains("apps")) {
@@ -69,7 +69,7 @@ public class AndroidAppProcess extends AndroidProcess {
         } catch (Exception e) {
           uid = status().getUid();
         }
-        ProcessManager.log("name=%s, pid=%d, uid=%d foreground=%b, cpuacct=%s, cpu=%s",
+        AndroidProcesses.log("name=%s, pid=%d, uid=%d foreground=%b, cpuacct=%s, cpu=%s",
             name, pid, uid, foreground, cpuacct.toString(), cpu.toString());
       }
     } else {
@@ -83,7 +83,7 @@ public class AndroidAppProcess extends AndroidProcess {
       // https://github.com/android/platform_system_core/blob/jb-mr1-release/libcutils/sched_policy.c#L245-256
       foreground = stat.policy() == 0; // SCHED_NORMAL
       uid = status.getUid();
-      ProcessManager.log("name=%s, pid=%d, uid=%d foreground=%b", name, pid, uid, foreground);
+      AndroidProcesses.log("name=%s, pid=%d, uid=%d foreground=%b", name, pid, uid, foreground);
     }
 
     this.foreground = foreground;

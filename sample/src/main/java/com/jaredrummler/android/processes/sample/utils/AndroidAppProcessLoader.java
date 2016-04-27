@@ -20,7 +20,7 @@ package com.jaredrummler.android.processes.sample.utils;
 import android.content.Context;
 import android.os.AsyncTask;
 
-import com.jaredrummler.android.processes.ProcessManager;
+import com.jaredrummler.android.processes.AndroidProcesses;
 import com.jaredrummler.android.processes.models.AndroidAppProcess;
 
 import java.util.Collections;
@@ -38,7 +38,7 @@ public class AndroidAppProcessLoader extends AsyncTask<Void, Void, List<AndroidA
   }
 
   @Override protected List<AndroidAppProcess> doInBackground(Void... params) {
-    List<AndroidAppProcess> processes = ProcessManager.getRunningAppProcesses();
+    List<AndroidAppProcess> processes = AndroidProcesses.getRunningAppProcesses();
 
     // sort by app name
     Collections.sort(processes, new Comparator<AndroidAppProcess>() {
