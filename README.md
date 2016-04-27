@@ -63,6 +63,8 @@ System apps may not be visible because they have a higher SELinux context than t
 
 Some information that was available through  [ActivityManager#getRunningAppProcesses()](http://developer.android.com/intl/zh-cn/reference/android/app/ActivityManager.html#getRunningAppProcesses()) is not available using this library ([pkgList](http://developer.android.com/reference/android/app/ActivityManager.RunningAppProcessInfo.html#pkgList), [lru](http://developer.android.com/intl/zh-cn/reference/android/app/ActivityManager.RunningAppProcessInfo.html#lru), [importance](http://developer.android.com/intl/zh-cn/reference/android/app/ActivityManager.RunningAppProcessInfo.html#importance), etc.).
 
+This is currently not working on the N developer preview.
+
 Download
 --------
 
