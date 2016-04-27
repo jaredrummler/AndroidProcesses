@@ -1,6 +1,6 @@
 # AndroidProcesses
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.jaredrummler/android-processes/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.jaredrummler/android-processes) [![License](http://img.shields.io/:license-apache-blue.svg)](LICENSE.txt) [![API](https://img.shields.io/badge/API-4%2B-blue.svg?style=flat)](https://android-arsenal.com/api?level=4) <a href="http://www.methodscount.com/?lib=com.jaredrummler%3Aandroid-processes%3A1.0.7" target="_blank"><img src="https://img.shields.io/badge/method count-227-e91e63.svg"></img></a> <a href="http://www.methodscount.com/?lib=com.jaredrummler%3Aandroid-processes%3A1.0.7" target="_blank"><img src="https://img.shields.io/badge/size-22 KB-e91e63.svg"></img></a> [![Twitter Follow](https://img.shields.io/twitter/follow/jrummy16.svg?style=social)](https://twitter.com/jrummy16)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.jaredrummler/android-processes/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.jaredrummler/android-processes) [![License](http://img.shields.io/:license-apache-blue.svg)](LICENSE.txt) [![API](https://img.shields.io/badge/API-4%2B-blue.svg?style=flat)](https://android-arsenal.com/api?level=4) <a href="http://www.methodscount.com/?lib=com.jaredrummler%3Aandroid-processes%3A1.0.8" target="_blank"><img src="https://img.shields.io/badge/method count-236-e91e63.svg"></img></a> <a href="http://www.methodscount.com/?lib=com.jaredrummler%3Aandroid-processes%3A1.0.8" target="_blank"><img src="https://img.shields.io/badge/size-23 KB-e91e63.svg"></img></a> [![Twitter Follow](https://img.shields.io/twitter/follow/jrummy16.svg?style=social)](https://twitter.com/jrummy16)
 
 A small library to get the current running processes on Android
 ___
@@ -68,17 +68,17 @@ This is currently not working on the N developer preview.
 Download
 --------
 
-Download [the latest AAR](https://repo1.maven.org/maven2/com/jaredrummler/android-processes/1.0.7/android-processes-1.0.7.aar) or grab via Gradle:
+Download [the latest AAR](https://repo1.maven.org/maven2/com/jaredrummler/android-processes/1.0.8/android-processes-1.0.8.aar) or grab via Gradle:
 
 ```groovy
-compile 'com.jaredrummler:android-processes:1.0.7'
+compile 'com.jaredrummler:android-processes:1.0.8'
 ```
 or Maven:
 ```xml
 <dependency>
   <groupId>com.jaredrummler</groupId>
   <artifactId>android-processes</artifactId>
-  <version>1.0.7</version>
+  <version>1.0.8</version>
   <type>aar</type>
 </dependency>
 ```
