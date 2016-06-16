@@ -1,6 +1,16 @@
-# AndroidProcesses
+<h1 align="center">AndroidProcesses</h1>
+<h4 align="center">Android Library</h4>
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.jaredrummler/android-processes/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.jaredrummler/android-processes) [![License](http://img.shields.io/:license-apache-blue.svg)](LICENSE.txt) [![API](https://img.shields.io/badge/API-4%2B-blue.svg?style=flat)](https://android-arsenal.com/api?level=4) <a href="http://www.methodscount.com/?lib=com.jaredrummler%3Aandroid-processes%3A1.0.8" target="_blank"><img src="https://img.shields.io/badge/method count-236-e91e63.svg"></img></a> <a href="http://www.methodscount.com/?lib=com.jaredrummler%3Aandroid-processes%3A1.0.8" target="_blank"><img src="https://img.shields.io/badge/size-23 KB-e91e63.svg"></img></a> [![Twitter Follow](https://img.shields.io/twitter/follow/jrummy16.svg?style=social)](https://twitter.com/jrummy16)
+<p align="center">
+  <a target="_blank" href="https://developer.android.com/reference/android/os/Build.VERSION_CODES.html#DONUT"><img src="https://img.shields.io/badge/API-4%2B-blue.svg?style=flat" alt="API" /></a>
+  <a target="_blank" href="LICENSE.txt"><img src="http://img.shields.io/:license-apache-blue.svg" alt="License" /></a>
+  <a target="_blank" href="https://maven-badges.herokuapp.com/maven-central/com.jaredrummler/android-processes"><img src="https://maven-badges.herokuapp.com/maven-central/com.jaredrummler/android-processes/badge.svg" alt="Maven Central" /></a>
+  <a target="_blank" href="http://www.methodscount.com/?lib=com.jaredrummler%3Aandroid-processes%3A1.0.8"><img src="https://img.shields.io/badge/methods-236-e91e63.svg" /></a>
+</p>
+
+<p align="center">
+  <a target="_blank" href="https://twitter.com/jrummy16"><img src="https://img.shields.io/twitter/follow/jrummy16.svg?style=social" /></a>
+</p>
 
 A small library to get the current running processes on Android
 ___
