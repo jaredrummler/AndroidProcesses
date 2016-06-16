@@ -1,5 +1,5 @@
 <h1 align="center">AndroidProcesses</h1>
-<h4 align="center">Android Library</h4>
+<h4 align="center">A small Android library to get the current running processes</h4>
 
 <p align="center">
   <a target="_blank" href="https://developer.android.com/reference/android/os/Build.VERSION_CODES.html#DONUT"><img src="https://img.shields.io/badge/API-4%2B-blue.svg?style=flat" alt="API" /></a>
@@ -12,7 +12,6 @@
   <a target="_blank" href="https://twitter.com/jrummy16"><img src="https://img.shields.io/twitter/follow/jrummy16.svg?style=social" /></a>
 </p>
 
-A small library to get the current running processes on Android
 ___
 
 Why would I need this?
