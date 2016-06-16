@@ -14,12 +14,15 @@
 
 ___
 
+What is this library for?
+-------------------------
+
+This small library can get a list of running apps and does not require any permissions.
+
 Why would I need this?
 ----------------------
 
 Android 5.0+ killed [`getRunningTasks(int)`](http://developer.android.com/intl/zh-cn/reference/android/app/ActivityManager.html#getRunningTasks(int)) and [`getRunningAppProcesses()`](http://developer.android.com/intl/zh-cn/reference/android/app/ActivityManager.html#getRunningAppProcesses()). Both of those methods are now deprecated and only return your application process. You can get a list of running apps using [UsageStatsManager](https://developer.android.com/reference/android/app/usage/UsageStatsManager.html), however, this requires your users to grant your application a special permission in Settings. It has been reported that some OEMs have removed this preference.
-
-This small library can get a list of running apps and does not require any permissions.
 
 Usage
 -----
@@ -68,11 +71,9 @@ List<ActivityManager.RunningAppProcessInfo> processes = AndroidProcesses.getRunn
 Limitations
 -----------
 
-System apps may not be visible because they have a higher SELinux context than third party apps.
-
-Some information that was available through  [ActivityManager#getRunningAppProcesses()](http://developer.android.com/intl/zh-cn/reference/android/app/ActivityManager.html#getRunningAppProcesses()) is not available using this library ([pkgList](http://developer.android.com/reference/android/app/ActivityManager.RunningAppProcessInfo.html#pkgList), [lru](http://developer.android.com/intl/zh-cn/reference/android/app/ActivityManager.RunningAppProcessInfo.html#lru), [importance](http://developer.android.com/intl/zh-cn/reference/android/app/ActivityManager.RunningAppProcessInfo.html#importance), etc.).
-
-This is currently not working on the N developer preview.
+* System apps will not be included on some Android versions because they have a higher SELinux context.
+* This is not a full replacement of [getRunningAppProcesses()](http://developer.android.com/intl/zh-cn/reference/android/app/ActivityManager.html#getRunningAppProcesses()). The library does not provide a processes' [pkgList](http://developer.android.com/reference/android/app/ActivityManager.RunningAppProcessInfo.html#pkgList), [lru](http://developer.android.com/intl/zh-cn/reference/android/app/ActivityManager.RunningAppProcessInfo.html#lru), or [importance](http://developer.android.com/intl/zh-cn/reference/android/app/ActivityManager.RunningAppProcessInfo.html#importance).
+* This is currently not working on the N developer preview.
 
 Download
 --------
