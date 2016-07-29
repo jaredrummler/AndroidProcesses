@@ -24,6 +24,11 @@ Why would I need this?
 
 Android 5.0+ killed [`getRunningTasks(int)`](http://developer.android.com/intl/zh-cn/reference/android/app/ActivityManager.html#getRunningTasks(int)) and [`getRunningAppProcesses()`](http://developer.android.com/intl/zh-cn/reference/android/app/ActivityManager.html#getRunningAppProcesses()). Both of those methods are now deprecated and only return your application process. You can get a list of running apps using [UsageStatsManager](https://developer.android.com/reference/android/app/usage/UsageStatsManager.html), however, this requires your users to grant your application a special permission in Settings. It has been reported that some OEMs have removed this preference.
 
+Android Nougat
+--------------
+
+Google has significantly restricted access to `/proc` in Android Nougat. This library will not work on Android 7.0. Please [star this issue](https://code.google.com/p/android/issues/detail?id=205565). To get a list of running processes on Android Nougat you will need to use UsageStatsManager or have root access. Really Google?
+
 Usage
 -----
 
