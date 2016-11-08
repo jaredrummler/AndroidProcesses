@@ -48,7 +48,10 @@ public class ProcFile extends File implements Parcelable {
       return output.toString();
     } finally {
       if (reader != null) {
-        reader.close();
+        try {
+          reader.close();
+        } catch (IOException ignored) {
+        }
       }
     }
   }
