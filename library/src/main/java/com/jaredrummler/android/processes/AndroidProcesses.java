@@ -27,7 +27,9 @@ import android.util.Log;
 import com.jaredrummler.android.processes.models.AndroidAppProcess;
 import com.jaredrummler.android.processes.models.AndroidProcess;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -93,6 +95,8 @@ public class AndroidProcesses {
 
   public static final String TAG = "AndroidProcesses";
 
+  private static final int AID_READPROC = 3009;
+
   private static boolean loggingEnabled;
 
   /**
@@ -144,6 +148,37 @@ public class AndroidProcesses {
     if (loggingEnabled) {
       Log.d(TAG, args.length == 0 ? message : String.format(message, args), error);
     }
+  }
+
+  /**
+   * On Android 7.0+ the procfs filesystem is now mounted with hidepid=2, eliminating access to the /proc/PID
+   * directories of other users. There's a group ("readproc") for making exceptions but it's not exposed as a
+   * permission. To get a list of processes on Android 7.0+ you must use {@link android.app.usage.UsageStatsManager}
+   * or have root access.
+   *
+   * @return {@code true} if procfs is mounted with hidepid=2
+   */
+  public static boolean isProcessInfoHidden() {
+    BufferedReader reader = null;
+    try {
+      reader = new BufferedReader(new FileReader("/proc/mounts"));
+      for (String line = reader.readLine(); line != null; line = reader.readLine()) {
+        String[] columns = line.split("\\s+");
+        if (columns.length == 6 && columns[1].equals("/proc")) {
+          return columns[3].contains("hidepid=1") || columns[3].contains("hidepid=2");
+        }
+      }
+    } catch (IOException e) {
+      Log.d(TAG, "Error reading /proc/mounts. Checking if UID 'readproc' exists.");
+    } finally {
+      if (reader != null) {
+        try {
+          reader.close();
+        } catch (IOException ignored) {
+        }
+      }
+    }
+    return android.os.Process.getUidForName("readproc") == AID_READPROC;
   }
 
   /**
