@@ -5,7 +5,7 @@
   <a target="_blank" href="https://developer.android.com/reference/android/os/Build.VERSION_CODES.html#DONUT"><img src="https://img.shields.io/badge/API-4%2B-blue.svg?style=flat" alt="API" /></a>
   <a target="_blank" href="LICENSE.txt"><img src="http://img.shields.io/:license-apache-blue.svg" alt="License" /></a>
   <a target="_blank" href="https://maven-badges.herokuapp.com/maven-central/com.jaredrummler/android-processes"><img src="https://maven-badges.herokuapp.com/maven-central/com.jaredrummler/android-processes/badge.svg" alt="Maven Central" /></a>
-  <a target="_blank" href="http://www.methodscount.com/?lib=com.jaredrummler%3Aandroid-processes%3A1.0.8"><img src="https://img.shields.io/badge/methods-236-e91e63.svg" /></a>
+  <a target="_blank" href="http://www.methodscount.com/?lib=com.jaredrummler%3Aandroid-processes%3A1.0.9"><img src="https://img.shields.io/badge/methods-236-e91e63.svg" /></a>
 </p>
 
 <p align="center">
@@ -83,17 +83,17 @@ Limitations
 Download
 --------
 
-Download [the latest AAR](https://repo1.maven.org/maven2/com/jaredrummler/android-processes/1.0.8/android-processes-1.0.8.aar) or grab via Gradle:
+Download [the latest AAR](https://repo1.maven.org/maven2/com/jaredrummler/android-processes/1.0.9/android-processes-1.0.9.aar) or grab via Gradle:
 
 ```groovy
-compile 'com.jaredrummler:android-processes:1.0.8'
+compile 'com.jaredrummler:android-processes:1.0.9'
 ```
 or Maven:
 ```xml
 <dependency>
   <groupId>com.jaredrummler</groupId>
   <artifactId>android-processes</artifactId>
-  <version>1.0.8</version>
+  <version>1.0.9</version>
   <type>aar</type>
 </dependency>
 ```
