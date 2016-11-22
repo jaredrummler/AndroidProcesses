@@ -32,6 +32,11 @@ public class AndroidAppProcess extends AndroidProcess {
 
   private static final boolean SYS_SUPPORTS_SCHEDGROUPS = new File("/dev/cpuctl/tasks").exists();
 
+  // The name may contain uppercase or lowercase letters ('A' through 'Z'), numbers, and underscores ('_').
+  // However, individual package name parts may only start with letters.
+  private static final String ANDROID_PROCESS_NAME_REGEX =
+      "^([\\p{L}]{1}[\\p{L}\\p{N}_]*[\\.:])*[\\p{L}][\\p{L}\\p{N}_]*$";
+
   /** {@code true} if the process is in the foreground */
   public final boolean foreground;
 
@@ -40,6 +45,11 @@ public class AndroidAppProcess extends AndroidProcess {
 
   public AndroidAppProcess(int pid) throws IOException, NotAndroidAppProcessException {
     super(pid);
+    if (name == null || !name.matches(ANDROID_PROCESS_NAME_REGEX) ||
+        !new File("/data/data", getPackageName()).exists()) {
+      throw new NotAndroidAppProcessException(pid);
+    }
+
     final boolean foreground;
     int uid;
 
@@ -73,11 +83,6 @@ public class AndroidAppProcess extends AndroidProcess {
             name, pid, uid, foreground, cpuacct.toString(), cpu.toString());
       }
     } else {
-      // this is a really ugly way to check if the process is an application.
-      // we could possibly check the UID name (starts with "app_" or "u<USER_ID>_a")
-      if (name.startsWith("/") || !new File("/data/data", getPackageName()).exists()) {
-        throw new NotAndroidAppProcessException(pid);
-      }
       Stat stat = stat();
       Status status = status();
       // https://github.com/android/platform_system_core/blob/jb-mr1-release/libcutils/sched_policy.c#L245-256
