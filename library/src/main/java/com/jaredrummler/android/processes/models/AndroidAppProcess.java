@@ -27,6 +27,7 @@ import com.jaredrummler.android.processes.AndroidProcesses;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.regex.Pattern;
 
 public class AndroidAppProcess extends AndroidProcess {
 
@@ -34,8 +35,9 @@ public class AndroidAppProcess extends AndroidProcess {
 
   // The name may contain uppercase or lowercase letters ('A' through 'Z'), numbers, and underscores ('_').
   // However, individual package name parts may only start with letters.
-  private static final String ANDROID_PROCESS_NAME_REGEX =
-      "^([\\p{L}]{1}[\\p{L}\\p{N}_]*[\\.:])*[\\p{L}][\\p{L}\\p{N}_]*$";
+  // A process name can contain a colon.
+  private static final Pattern PROCESS_NAME_PATTERN = Pattern.compile(
+      "^([A-Za-z]{1}[A-Za-z0-9_]*[\\.|:])*[A-Za-z][A-Za-z0-9_]*$");
 
   /** {@code true} if the process is in the foreground */
   public final boolean foreground;
@@ -45,7 +47,7 @@ public class AndroidAppProcess extends AndroidProcess {
 
   public AndroidAppProcess(int pid) throws IOException, NotAndroidAppProcessException {
     super(pid);
-    if (name == null || !name.matches(ANDROID_PROCESS_NAME_REGEX) ||
+    if (name == null || !PROCESS_NAME_PATTERN.matcher(name).matches() ||
         !new File("/data/data", getPackageName()).exists()) {
       throw new NotAndroidAppProcessException(pid);
     }
