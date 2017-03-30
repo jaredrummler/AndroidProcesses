@@ -27,7 +27,7 @@ Android 5.0+ killed [`getRunningTasks(int)`](http://developer.android.com/intl/z
 Android Nougat
 --------------
 
-Google has significantly restricted access to `/proc` in Android Nougat. This library will not work on Android 7.0. Please [star this issue](https://code.google.com/p/android/issues/detail?id=205565). To get a list of running processes on Android Nougat you will need to use UsageStatsManager or have root access. Really Google?
+Google has significantly restricted access to `/proc` in Android Nougat. This library will not work on Android 7.0. Please [star this issue](https://code.google.com/p/android/issues/detail?id=205565). To get a list of running processes on Android Nougat you will need to use [UsageStatsManager](https://developer.android.com/reference/android/app/usage/UsageStatsManager.html) and have root access. Really Google?
 
 Usage
 -----
