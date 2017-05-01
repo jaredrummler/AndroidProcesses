@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <a target="_blank" href="https://twitter.com/jrummy16"><img src="https://img.shields.io/twitter/follow/jrummy16.svg?style=social" /></a>
+  <a target="_blank" href="https://twitter.com/jaredrummler"><img src="https://img.shields.io/twitter/follow/jaredrummler.svg?style=social" /></a>
 </p>
 
 ___
