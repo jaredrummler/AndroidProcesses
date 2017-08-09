@@ -313,7 +313,6 @@ public class AndroidProcesses {
       for (AndroidAppProcess process : runningAppProcesses) {
         RunningAppProcessInfo info = new RunningAppProcessInfo(process.name, process.pid, null);
         info.uid = process.uid;
-        // TODO: Get more information about the process. pkgList, importance, lru, etc.
         appProcessInfos.add(info);
       }
       return appProcessInfos;

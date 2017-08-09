@@ -18,7 +18,6 @@
 package com.jaredrummler.android.processes.models;
 
 import android.os.Parcel;
-
 import java.io.IOException;
 
 /**
