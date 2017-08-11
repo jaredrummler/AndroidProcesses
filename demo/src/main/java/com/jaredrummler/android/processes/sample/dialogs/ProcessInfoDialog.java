@@ -26,14 +26,12 @@ import android.os.SystemClock;
 import android.text.Spanned;
 import android.text.format.Formatter;
 import android.util.Log;
-
 import com.jaredrummler.android.processes.models.AndroidAppProcess;
 import com.jaredrummler.android.processes.models.Stat;
 import com.jaredrummler.android.processes.models.Statm;
 import com.jaredrummler.android.processes.models.Status;
-import com.jaredrummler.android.processes.sample.utils.HtmlBuilder;
 import com.jaredrummler.android.processes.sample.utils.Utils;
-
+import com.jaredrummler.android.util.HtmlBuilder;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -126,6 +124,6 @@ public class ProcessInfoDialog extends DialogFragment {
       Log.d(TAG, String.format("Error reading /proc/%d/oom_score_adj.", process.pid));
     }
 
-    return html.toSpan();
+    return html.build();
   }
 }
