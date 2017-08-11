@@ -10,7 +10,7 @@ android {
 }
 
 dependencies {
-  compile 'com.jrummyapps:android-shell:1.0.0'
+  compile 'com.jaredrummler:android-shell:1.0.0'
 }
 
 apply from: rootProject.file('gradle/gradle-mvn-push.gradle')

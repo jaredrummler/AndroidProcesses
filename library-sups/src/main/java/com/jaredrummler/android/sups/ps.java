@@ -17,8 +17,8 @@
 package com.jaredrummler.android.sups;
 
 import android.support.annotation.WorkerThread;
-import com.jrummyapps.android.shell.CommandResult;
-import com.jrummyapps.android.shell.Shell;
+import com.jaredrummler.android.shell.CommandResult;
+import com.jaredrummler.android.shell.Shell;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
