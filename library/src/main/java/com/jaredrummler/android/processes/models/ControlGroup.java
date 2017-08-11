@@ -19,6 +19,7 @@ package com.jaredrummler.android.processes.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import java.util.Locale;
 
 public class ControlGroup implements Parcelable {
 
@@ -55,7 +56,7 @@ public class ControlGroup implements Parcelable {
   }
 
   @Override public String toString() {
-    return String.format("%d:%s:%s", id, subsystems, group);
+    return String.format(Locale.ENGLISH, "%d:%s:%s", id, subsystems, group);
   }
 
   public static final Creator<ControlGroup> CREATOR = new Creator<ControlGroup>() {

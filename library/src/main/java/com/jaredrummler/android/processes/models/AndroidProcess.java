@@ -22,33 +22,9 @@ import android.os.Parcelable;
 import android.text.TextUtils;
 
 import java.io.IOException;
+import java.util.Locale;
 
 public class AndroidProcess implements Parcelable {
-
-  /**
-   * Get the name of a running process.
-   *
-   * @param pid
-   *     the process id.
-   * @return the name of the process.
-   * @throws IOException
-   *     if the file does not exist or we don't have read permissions.
-   */
-  static String getProcessName(int pid) throws IOException {
-    String cmdline = null;
-    try {
-      cmdline = ProcFile.readFile(String.format("/proc/%d/cmdline", pid)).trim();
-    } catch (IOException ignored) {
-    }
-    if (TextUtils.isEmpty(cmdline)) {
-      try {
-        return Stat.get(pid).getComm();
-      } catch (Exception e) {
-        throw new IOException(String.format("Error reading /proc/%d/stat", pid));
-      }
-    }
-    return cmdline;
-  }
 
   /** the process name */
   public final String name;
@@ -69,6 +45,11 @@ public class AndroidProcess implements Parcelable {
     this.name = getProcessName(pid);
   }
 
+  protected AndroidProcess(Parcel in) {
+    this.name = in.readString();
+    this.pid = in.readInt();
+  }
+
   /**
    * Read the contents of a file in /proc/[pid]/[filename].
    *
@@ -79,7 +60,7 @@ public class AndroidProcess implements Parcelable {
    *     if the file does not exist or we don't have read permissions.
    */
   public String read(String filename) throws IOException {
-    return ProcFile.readFile(String.format("/proc/%d/%s", pid, filename));
+    return ProcFile.readFile(String.format(Locale.ENGLISH, "/proc/%d/%s", pid, filename));
   }
 
   /**
@@ -612,6 +593,31 @@ public class AndroidProcess implements Parcelable {
     return read("wchan");
   }
 
+  /**
+   * Get the name of a running process.
+   *
+   * @param pid
+   *     the process id.
+   * @return the name of the process.
+   * @throws IOException
+   *     if the file does not exist or we don't have read permissions.
+   */
+  private String getProcessName(int pid) throws IOException {
+    String cmdline = null;
+    try {
+      cmdline = ProcFile.readFile(String.format(Locale.ENGLISH, "/proc/%d/cmdline", pid)).trim();
+    } catch (IOException ignored) {
+    }
+    if (TextUtils.isEmpty(cmdline)) {
+      try {
+        return Stat.get(pid).getComm();
+      } catch (Exception e) {
+        throw new IOException(String.format(Locale.ENGLISH, "Error reading /proc/%d/stat", pid));
+      }
+    }
+    return cmdline;
+  }
+
   @Override public int describeContents() {
     return 0;
   }
@@ -619,11 +625,6 @@ public class AndroidProcess implements Parcelable {
   @Override public void writeToParcel(Parcel dest, int flags) {
     dest.writeString(this.name);
     dest.writeInt(this.pid);
-  }
-
-  protected AndroidProcess(Parcel in) {
-    this.name = in.readString();
-    this.pid = in.readInt();
   }
 
   public static final Creator<AndroidProcess> CREATOR = new Creator<AndroidProcess>() {

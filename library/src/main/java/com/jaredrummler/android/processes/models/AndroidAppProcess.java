@@ -97,6 +97,12 @@ public class AndroidAppProcess extends AndroidProcess {
     this.uid = uid;
   }
 
+  protected AndroidAppProcess(Parcel in) {
+    super(in);
+    foreground = in.readByte() != 0x00;
+    uid = in.readInt();
+  }
+
   /**
    * @return the app's package name
    * @see #name
@@ -132,12 +138,6 @@ public class AndroidAppProcess extends AndroidProcess {
     super.writeToParcel(dest, flags);
     dest.writeByte((byte) (foreground ? 0x01 : 0x00));
     dest.writeInt(uid);
-  }
-
-  protected AndroidAppProcess(Parcel in) {
-    super(in);
-    foreground = in.readByte() != 0x00;
-    uid = in.readInt();
   }
 
   public static final Creator<AndroidAppProcess> CREATOR = new Creator<AndroidAppProcess>() {

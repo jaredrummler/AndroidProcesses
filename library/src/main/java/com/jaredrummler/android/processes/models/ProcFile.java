@@ -36,7 +36,7 @@ public class ProcFile extends File implements Parcelable {
    * @throws IOException
    *     if an error occurred while reading.
    */
-  protected static String readFile(String path) throws IOException {
+  static String readFile(String path) throws IOException {
     BufferedReader reader = null;
     try {
       StringBuilder output = new StringBuilder();

@@ -18,9 +18,9 @@
 package com.jaredrummler.android.processes.models;
 
 import android.os.Parcel;
-
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * <p>/proc/[pid]/cgroup (since Linux 2.6.24)</p>
@@ -54,7 +54,7 @@ public final class Cgroup extends ProcFile {
    *     if the file does not exist or we don't have read permissions.
    */
   public static Cgroup get(int pid) throws IOException {
-    return new Cgroup(String.format("/proc/%d/cgroup", pid));
+    return new Cgroup(String.format(Locale.ENGLISH, "/proc/%d/cgroup", pid));
   }
 
   /** the process' control groups */

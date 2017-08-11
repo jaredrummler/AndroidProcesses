@@ -19,6 +19,7 @@ package com.jaredrummler.android.processes.models;
 
 import android.os.Parcel;
 import java.io.IOException;
+import java.util.Locale;
 
 /**
  * <p>/proc/[pid]/stat</p>
@@ -169,7 +170,7 @@ public final class Stat extends ProcFile {
    *     if the file does not exist or we don't have read permissions.
    */
   public static Stat get(int pid) throws IOException {
-    return new Stat(String.format("/proc/%d/stat", pid));
+    return new Stat(String.format(Locale.ENGLISH, "/proc/%d/stat", pid));
   }
 
   private final String[] fields;

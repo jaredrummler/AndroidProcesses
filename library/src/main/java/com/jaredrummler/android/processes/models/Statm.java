@@ -18,8 +18,8 @@
 package com.jaredrummler.android.processes.models;
 
 import android.os.Parcel;
-
 import java.io.IOException;
+import java.util.Locale;
 
 /**
  * <p>Provides information about memory usage, measured in pages.</p>
@@ -48,7 +48,7 @@ public final class Statm extends ProcFile {
    *     if the file does not exist or we don't have read permissions.
    */
   public static Statm get(int pid) throws IOException {
-    return new Statm(String.format("/proc/%d/statm", pid));
+    return new Statm(String.format(Locale.ENGLISH, "/proc/%d/statm", pid));
   }
 
   public final String[] fields;

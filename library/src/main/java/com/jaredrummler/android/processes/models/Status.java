@@ -18,8 +18,8 @@
 package com.jaredrummler.android.processes.models;
 
 import android.os.Parcel;
-
 import java.io.IOException;
+import java.util.Locale;
 
 /**
  * <p>/proc/[pid]/status</p>
@@ -141,7 +141,7 @@ public final class Status extends ProcFile {
    *     if the file does not exist or we don't have read permissions.
    */
   public static Status get(int pid) throws IOException {
-    return new Status(String.format("/proc/%d/status", pid));
+    return new Status(String.format(Locale.ENGLISH, "/proc/%d/status", pid));
   }
 
   private Status(String path) throws IOException {
