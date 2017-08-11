@@ -41,7 +41,11 @@ public class AndroidProcess implements Parcelable {
     } catch (IOException ignored) {
     }
     if (TextUtils.isEmpty(cmdline)) {
-      return Stat.get(pid).getComm();
+      try {
+        return Stat.get(pid).getComm();
+      } catch (Exception e) {
+        throw new IOException(String.format("Error reading /proc/%d/stat", pid));
+      }
     }
     return cmdline;
   }
