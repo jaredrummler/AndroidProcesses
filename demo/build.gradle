@@ -22,6 +22,5 @@ android {
 dependencies {
   compile 'com.squareup.picasso:picasso:2.5.2'
   compile 'com.jaredrummler:html-builder:1.0.0'
-  compile project(':library-main')
-  compile project(':library-sups')
+  compile project(':library')
 }
