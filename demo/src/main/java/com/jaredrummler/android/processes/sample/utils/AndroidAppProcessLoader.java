@@ -19,15 +19,14 @@ package com.jaredrummler.android.processes.sample.utils;
 
 import android.content.Context;
 import android.os.AsyncTask;
-
-import com.jaredrummler.android.processes.AndroidProcesses;
-import com.jaredrummler.android.processes.models.AndroidAppProcess;
-
+import com.jaredrummler.android.sups.ProcessStatusInfo;
+import com.jaredrummler.android.sups.ps;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 
-public class AndroidAppProcessLoader extends AsyncTask<Void, Void, List<AndroidAppProcess>> {
+public class AndroidAppProcessLoader extends AsyncTask<Void, Void, List<ProcessStatusInfo>> {
 
   private final Listener listener;
   private final Context context;
@@ -37,13 +36,21 @@ public class AndroidAppProcessLoader extends AsyncTask<Void, Void, List<AndroidA
     this.listener = listener;
   }
 
-  @Override protected List<AndroidAppProcess> doInBackground(Void... params) {
-    List<AndroidAppProcess> processes = AndroidProcesses.getRunningAppProcesses();
+  @Override protected List<ProcessStatusInfo> doInBackground(Void... params) {
+    List<ProcessStatusInfo> processes = ps.run();
+
+    // remove processes that aren't apps
+    for (Iterator<ProcessStatusInfo> iterator = processes.iterator(); iterator.hasNext(); ) {
+      ProcessStatusInfo process = iterator.next();
+      if (!process.isApp()) {
+        iterator.remove();
+      }
+    }
 
     // sort by app name
-    Collections.sort(processes, new Comparator<AndroidAppProcess>() {
+    Collections.sort(processes, new Comparator<ProcessStatusInfo>() {
 
-      @Override public int compare(AndroidAppProcess lhs, AndroidAppProcess rhs) {
+      @Override public int compare(ProcessStatusInfo lhs, ProcessStatusInfo rhs) {
         return Utils.getName(context, lhs).compareToIgnoreCase(Utils.getName(context, rhs));
       }
     });
@@ -51,13 +58,13 @@ public class AndroidAppProcessLoader extends AsyncTask<Void, Void, List<AndroidA
     return processes;
   }
 
-  @Override protected void onPostExecute(List<AndroidAppProcess> androidAppProcesses) {
+  @Override protected void onPostExecute(List<ProcessStatusInfo> androidAppProcesses) {
     listener.onComplete(androidAppProcesses);
   }
 
   public interface Listener {
 
-    void onComplete(List<AndroidAppProcess> processes);
+    void onComplete(List<ProcessStatusInfo> processes);
   }
 
 }

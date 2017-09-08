@@ -26,10 +26,8 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.text.TextUtils;
-
 import com.squareup.picasso.Request;
 import com.squareup.picasso.RequestHandler;
-
 import java.io.IOException;
 
 import static com.jaredrummler.android.processes.sample.utils.Utils.drawableToBitmap;

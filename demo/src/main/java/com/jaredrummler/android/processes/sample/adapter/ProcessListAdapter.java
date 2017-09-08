@@ -26,25 +26,23 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.jaredrummler.android.processes.models.AndroidAppProcess;
 import com.jaredrummler.android.processes.sample.R;
 import com.jaredrummler.android.processes.sample.utils.Utils;
+import com.jaredrummler.android.sups.ProcessStatusInfo;
 import com.squareup.picasso.Picasso;
-
 import java.util.List;
 
 import static com.jaredrummler.android.processes.sample.picasso.AppIconRequestHandler.SCHEME_PNAME;
 
 public class ProcessListAdapter extends BaseAdapter {
 
-  private final List<AndroidAppProcess> processes;
+  private final List<ProcessStatusInfo> processes;
   private final LayoutInflater inflater;
   private final Context context;
   private final Picasso picasso;
   private final int iconSize;
 
-  public ProcessListAdapter(Context context, List<AndroidAppProcess> processes) {
+  public ProcessListAdapter(Context context, List<ProcessStatusInfo> processes) {
     this.context = context.getApplicationContext();
     this.inflater = LayoutInflater.from(context);
     this.iconSize = Utils.toPx(context, 46);
@@ -56,7 +54,7 @@ public class ProcessListAdapter extends BaseAdapter {
     return processes.size();
   }
 
-  @Override public AndroidAppProcess getItem(int position) {
+  @Override public ProcessStatusInfo getItem(int position) {
     return processes.get(position);
   }
 
@@ -73,12 +71,12 @@ public class ProcessListAdapter extends BaseAdapter {
       holder = (ViewHolder) convertView.getTag();
     }
 
-    AndroidAppProcess process = getItem(position);
+    ProcessStatusInfo process = getItem(position);
 
     ImageView imageView = holder.find(R.id.imageView);
     TextView textView = holder.find(R.id.textView);
 
-    picasso.load(Uri.parse(SCHEME_PNAME + ":" + process.getPackageName()))
+    picasso.load(Uri.parse(SCHEME_PNAME + ":" + process.name))
         .placeholder(android.R.drawable.sym_def_app_icon)
         .resize(iconSize, iconSize)
         .centerInside()

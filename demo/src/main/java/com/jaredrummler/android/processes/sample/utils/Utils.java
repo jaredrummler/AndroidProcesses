@@ -27,8 +27,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.PictureDrawable;
 import android.util.TypedValue;
-
-import com.jaredrummler.android.processes.models.AndroidAppProcess;
+import com.jaredrummler.android.sups.ProcessStatusInfo;
 
 public class Utils {
 
@@ -60,10 +59,10 @@ public class Utils {
     return Math.round(px);
   }
 
-  public static String getName(Context context, AndroidAppProcess process) {
+  public static String getName(Context context, ProcessStatusInfo process) {
     try {
       PackageManager pm = context.getPackageManager();
-      PackageInfo packageInfo = process.getPackageInfo(context, 0);
+      PackageInfo packageInfo = pm.getPackageInfo(process.name, 0);
       return AppNames.getLabel(pm, packageInfo);
     } catch (PackageManager.NameNotFoundException e) {
       return process.name;

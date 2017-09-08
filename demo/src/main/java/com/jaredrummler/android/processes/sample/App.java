@@ -18,19 +18,28 @@
 package com.jaredrummler.android.processes.sample;
 
 import android.app.Application;
-
-import com.jaredrummler.android.processes.AndroidProcesses;
 import com.jaredrummler.android.processes.sample.picasso.AppIconRequestHandler;
+import com.jaredrummler.android.sups.ProcessStatusInfo;
+import com.jaredrummler.android.sups.ps;
 import com.squareup.picasso.Picasso;
+import java.util.List;
 
 public class App extends Application {
 
   @Override public void onCreate() {
     super.onCreate();
-    AndroidProcesses.setLoggingEnabled(true);
     Picasso.setSingletonInstance(new Picasso.Builder(this)
         .addRequestHandler(new AppIconRequestHandler(this))
         .build());
+
+// Runs "toolbox ps" in a root shell. This should be run on a background thread.
+List<ProcessStatusInfo> processes = ps.run();
+for (ProcessStatusInfo process : processes) {
+  String processName = process.name;
+  int pid = process.pid;
+  long rssSize = process.rss;
+  // etc.
+}
   }
 
 }

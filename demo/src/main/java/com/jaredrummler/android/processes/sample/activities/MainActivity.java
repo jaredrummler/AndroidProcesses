@@ -18,13 +18,8 @@
 package com.jaredrummler.android.processes.sample.activities;
 
 import android.app.Activity;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-
 import com.jaredrummler.android.processes.sample.fragments.ProcessListFragment;
-import com.jaredrummler.android.processes.sample.utils.PsTask;
 
 public class MainActivity extends Activity {
 
@@ -32,21 +27,6 @@ public class MainActivity extends Activity {
     super.onCreate(savedInstanceState);
     if (savedInstanceState == null) {
       getFragmentManager().beginTransaction().add(android.R.id.content, new ProcessListFragment()).commit();
-    }
-  }
-
-  @Override public boolean onCreateOptionsMenu(Menu menu) {
-    menu.add(0, Menu.FIRST, 0, "Run as root");
-    return super.onCreateOptionsMenu(menu);
-  }
-
-  @Override public boolean onOptionsItemSelected(MenuItem item) {
-    switch (item.getItemId()) {
-      case Menu.FIRST:
-        new PsTask(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        return true;
-      default:
-        return super.onOptionsItemSelected(item);
     }
   }
 

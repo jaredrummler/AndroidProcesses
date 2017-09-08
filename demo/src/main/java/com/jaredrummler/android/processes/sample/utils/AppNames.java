@@ -19,7 +19,6 @@ package com.jaredrummler.android.processes.sample.utils;
 
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-
 import java.util.Hashtable;
 
 public class AppNames {
