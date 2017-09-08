@@ -92,14 +92,22 @@ afterEvaluate { project ->
     sign configurations.archives
   }
 
-  task androidJavadocs(type: Javadoc) {
-    source = android.sourceSets.main.java.srcDirs
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+  android.libraryVariants.all { variant ->
+    task("${variant.name}Javadoc", type: Javadoc) {
+      description "Generates Javadoc for $variant.name."
+      source = variant.javaCompile.source
+      classpath = files(variant.javaCompile.classpath.files,
+          project.android.getBootClasspath())
+      exclude '**/BuildConfig.java'
+      exclude '**/R.java'
+    }
   }
 
-  task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
+  task javadocJar(type: Jar, dependsOn: 'releaseJavadoc') {
     classifier = 'javadoc'
-    from androidJavadocs.destinationDir
+    from {
+      releaseJavadoc.destinationDir
+    }
   }
 
   task androidSourcesJar(type: Jar) {
@@ -109,6 +117,6 @@ afterEvaluate { project ->
 
   artifacts {
     archives androidSourcesJar
-    archives androidJavadocsJar
+    archives javadocJar
   }
 }

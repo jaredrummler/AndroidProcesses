@@ -76,20 +76,20 @@ public class ProcessStatusInfo implements Parcelable {
 
   /**
    * Possible states:
-   * <p/>
-   * "D" uninterruptible sleep (usually IO)
-   * <p/>
-   * "R" running or runnable (on run queue)
-   * <p/>
-   * "S" interruptible sleep (waiting for an event to complete)
-   * <p/>
-   * "T" stopped, either by a job control signal or because it is being traced
-   * <p/>
-   * "W" paging (not valid since the 2.6.xx kernel)
-   * <p/>
-   * "X" dead (should never be seen)
-   * </p>
-   * "Z" defunct ("zombie") process, terminated but not reaped by its parent
+   *
+   * <p>"D" uninterruptible sleep (usually IO)</p>
+   *
+   * <p>"R" running or runnable (on run queue)</p>
+   *
+   * <p>"S" interruptible sleep (waiting for an event to complete)</p>
+   *
+   * <p>"T" stopped, either by a job control signal or because it is being traced</p>
+   *
+   * <p>"W" paging (not valid since the 2.6.xx kernel)</p>
+   *
+   * <p>"X" dead (should never be seen)</p>
+   *
+   * <p>"Z" defunct ("zombie") process, terminated but not reaped by its parent</p>
    */
   public final String state;
 
