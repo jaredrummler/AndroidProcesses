@@ -29,6 +29,8 @@ public class ProcessStatusInfo implements Parcelable {
 
   private static final Pattern PS_LINE_PATTERN = Pattern.compile(
       "^(\\S+)\\s+(\\d+)\\s+(\\d+)\\s+(\\d+)\\s+(\\d+)\\s+(\\d+)\\s+(-?\\d+)\\s+(-?\\d+)\\s+(\\d+)\\s+(\\d+)\\s+(bg|fg|un|er)?\\s+(\\S+)\\s+(\\S+)\\s+(D|R|S|T|W|X|Z)\\s+(\\S+)\\s+\\(u:(\\d+),\\s+s:(\\d+)\\)$");
+  private static final Pattern PROCESS_NAME_PATTERN = Pattern.compile(
+      "^([A-Za-z]{1}[A-Za-z0-9_]*[\\.|:])*[A-Za-z][A-Za-z0-9_]*$");
   private static final Pattern MULTI_USER_APP_ID = Pattern.compile("^u\\d+_a\\d+$");
   private static final Pattern DEPRECATED_APP_ID = Pattern.compile("^app_\\d+$");
 
@@ -130,6 +132,9 @@ public class ProcessStatusInfo implements Parcelable {
   }
 
   public boolean isApp() {
+    if (!PROCESS_NAME_PATTERN.matcher(name).matches()) {
+      return false;
+    }
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
       // u{user_id}_a{app_id} is used on API 17+ for multiple user account support.
       return MULTI_USER_APP_ID.matcher(user).matches();
