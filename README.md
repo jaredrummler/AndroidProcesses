@@ -89,6 +89,11 @@ or Maven:
 </dependency>
 ```
 
+Adoption
+--------
+
+In 2017 I decompiled the top 150 free apps on Google Play and found numerous apps using this library. Companies using the library include Cheetah Mobile and Baidu. Apps using this library include [ES File Explorer](https://play.google.com/store/apps/details?id=com.estrongs.android.pop&hl=en), [Clean Master](https://play.google.com/store/apps/details?id=com.cleanmaster.mguard&hl=en), [Security Master](https://play.google.com/store/apps/details?id=com.cleanmaster.security&hl=en), [CM Launcher 3D](https://play.google.com/store/apps/details?id=com.ksmobile.launcher&hl=en), [Virus Cleaner](https://play.google.com/store/apps/details?id=com.ehawk.antivirus.applock.wifi&hl=en) by Hi Security, and [Super Cleaner](https://play.google.com/store/apps/details?id=com.apps.go.clean.boost.master&hl=en). Combined, these apps have at least **1.2 billion downloads**!
+
 License
 --------
 
