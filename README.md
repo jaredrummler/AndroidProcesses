@@ -23,6 +23,12 @@ More details can be found at:
 * https://jaredrummler.com/2017/09/13/android-processes/
 * https://code.google.com/p/android/issues/detail?id=205565
 
+---
+
+# DONATIONS
+
+Give back to the author of the library: bc1qm33s8s0hh5dqffpvv5ahmgyte2sy7g7pjftl43 🖖
+
 What is this library for?
 -------------------------
 
